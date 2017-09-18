@@ -69,20 +69,3 @@ Diverting the request traffic from users to some other webpage.
 Mitigation : Preventing traffic coming from unknown sources by implementing Firewall securities.
 
 --------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-          
-
-
-
-
-
