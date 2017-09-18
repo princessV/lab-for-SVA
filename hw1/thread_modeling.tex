@@ -7,6 +7,8 @@
 \geometry{left=1.5cm, right=1.5cm, top=3cm, bottom=2cm}
 
 \usepackage{array}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
 
 
 \begin{document}
@@ -23,7 +25,7 @@ An asset is defined as a conceptual or concrete property which is of attacker’
 \begin{table}[htbp]
 
 \centering
-\begin{tabular}{| m{1cm} || >{\raggedright}m{4cm} || m{12cm} |}    
+\begin{tabular}{| m{1cm} || >{\raggedright}m{4cm} || m{10cm} |}    
 \hline
 \multicolumn{1}{|c||}{ID} & \multicolumn{1}{c||}{Name} & \multicolumn{1}{c|}{Description} \\
 \hline
@@ -49,17 +51,86 @@ An asset is defined as a conceptual or concrete property which is of attacker’
 \caption{Assets of SQLite}
 \end{table}
 
-
+\vspace{1cm}
 
 \section*{Step 2: Create an architecture overview}
 \setcounter{section}{2}
+\subsection{Technologies}
+\clearpage
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{>{\raggedright}m{2cm} m{10cm}}
+\hline
+Technology & Description \\
+\hline
+B-Tree & B-tree is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time. \\
+\hline
+R-Tree & R-tree is a special index for the row of a query design. R-tree generally querier minimum or maximum rectangle in the xy coordinate GIS. \\
+\hline
+Tokenizer and Parser & The Tokenizer and Parser process the SQL statements and SQLite command, and convert them to SQLite internal byte codes that can be executed by Virtual Database Engine. \\
+\hline
+Page Cache & Because the available memory is limited, only a portion of the memory is used to store data from the database files. This part of the memory space is usually called a database cache or data buffer. In SQLite, it is called a page cache. \\
+\hline
+C Programming Language & C is a general-purpose, imperative computer programming language, supporting structured programming, lexical variable scope and recursion, while a static type system prevents many unintended operations. \\
+\hline
+\end{tabular}
+\caption{Technologies used in SQLite}
+\end{table}
+
 \subsection{Architecture diagram}
-% \includegraphics[height=7.7cm]{arch.png}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=7.7cm]{arch.png}
+\caption{Architecture of SQLite}
+\end{figure}
 
-
+\vspace{1cm}
 
 \section*{Step 3: Decompose the application}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\subsection{Security Profiles}
+\clearpage
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{>{\raggedright}m{3cm} m{13cm}}
+\hline
+Input Validation & \tabincell{m{13cm}}{1.	Not all the input is validated, users can type any SQL statements or other command to the front-end interface. Some invalid statements will be omitted by Tokenizer. Other statements, which may be malicious, will be executed. \\ 2.	Not all the data is validated as it is passed between separate trust bound. \\ 3. All the data in the database is created by user/program, so not all the data can be trusted.} \\
+\hline
+Authentication & SQLite runs only on local machine. Therefore, there are no strong account policies, no passwords enforced, no certificates, no password verifiers. \\
+\hline
+Authorization & SQLite does not have a user management system, which means every user can get access to the whole database file without authorization. \\
+\hline
+Configuration management & SQLite provides a set of APIs for users to configure database. These APIs can be called everywhere by any user. There are no specific security policies. \\
+\hline
+Sensitive data & \tabincell{m{13cm}}{1. All the SQL statements and database command are sensitive in the application. \\ 2. The user can get access to the whole database file. There are no specific secure policy to protect the file. And no encryption is enabled.} \\
+\hline
+Session management & Since no network are enabled, there is no session management. \\
+\hline
+Cryptography & The SQlite database is not responsible for encrypt the sensitive data and the data will be stored in plaintext. So there are no encryption algorithm in the SQLite database. \\
+\hline
+Parameter manipulation & \tabincell{m{13cm}}{1. The SQLite database itself does not detect tampered parameters since the applications that use SQLite will be responsible for detecting tampered parameters, such as a Web portal should implement the function to detect tampered parameters. \\ 2. The SQLite database itself does not validate all parameters in form fields, view state, cookie data, and HTTP headers.} \\
+\hline
+Exception management & \tabincell{m{13cm}}{1. When the developers implemented the SQLite, they considered most of possible exceptions in the C source code. \\ 2. Also, when the exception occurs, the SQLite database user can check the log files, such as the transaction logs to identify the exceptions. \\ 3. The exceptions are allowed to propagate back to the users since the log files are stored in the disk. \\ 4. The exception information will be recorded in the log files, which contain the exploitable information.} \\
+\hline
+Auditing and logging & \tabincell{m{13cm}}{1. The SQLite database stores log files(database files) in disk, which means that the attacks can be able to access these files by copying the disk of the system. \\ 2. Unlike most of database engines are client/server based, the SQLite is serverless. Any program that is able to access the disk is able to use the SQLite database.} \\
+\hline
+\end{tabular}
+\caption{Security profiles in SQLite}
+\end{table}
 
+
+
+\setcounter{subsection}{1}
+\subsection{Trust Boundaries, Data Flow and Entry Point}
+\clearpage
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=7.7cm]{arch_with_bo.png}
+\caption{Trust Boundaries of SQLite}
+\end{figure}
+
+\vspace{1cm}
 
 \section*{Step 4: Identify the threats}
 
