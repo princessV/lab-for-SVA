@@ -4,6 +4,7 @@
 % ------------ package ------------
 \usepackage{blindtext}
 \usepackage{graphicx}
+\graphicspath{{public/}}
 % ------------ package end ------------
 
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -13,20 +14,20 @@
 
 % ------------ title ------------
 \title{Executive Summary Report}
-\author{Qiyang~Gu}
+\author{Qiyang~Gu, Ujjawal~Sharma, Zhiyuan~Li}
 \maketitle
 % ------------ title end ------------
 
 
 % ------------ abstract ------------
 \begin{abstract}
-\blindtext
+Threat modeling is a technique meant to build secure systems by searching for the potential threats in systems. The concepts of threat model are based on assets which are worth being protected. These assets have specific vulnerabilities which can be exploited by attackers. Security analysts can identify which component in a system that would have the highest risk of being attacked by thinking from the perspective of the attacker. These components should have highest priorities in security assessments. Database is an essential and very significant part in an enterprise. It contains pivotal information about whole system and always become the target of attackers. In this report we choose on open-source database engine SQLite, following the threat modeling process of Microsoft, and create a threat model for SQLite.
 \end{abstract}
 % ------------ abstarct end ------------
 
 % ------------ keywords ------------
 \begin{IEEEkeywords}
-sqlite3, database, threat
+sqlite3, database, threat modeling
 \end{IEEEkeywords}
 % ------------ keywords end ------------
 
@@ -102,39 +103,56 @@ Separte deployment of database. (SQLite use single database file.)
 
 \section{Architecture}
 SQLite has a delicate architecture. It consists of eight independent modules in three sub-systems.
-\subsection{Front-end Interface}
+\subsection{Overview}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=7cm]{arch_and_module}
+\caption{Modules}
+\end{figure}
+
+\subsection{Modules}
+\subsubsection{Front-end Interface}
 The user or program interacts with database file via front-end interface.
 
-\subsection{Tokenizer}
+\subsubsection{Tokenizer}
 Tokenizer accpets SQL statements transmitted by front-end interface. It will split the statements into tokens. And then, these tokens will be sent to parser.
 
-\subsection{Parser}
+\subsubsection{Parser}
 Parser will assign each token a specific meaning accord to the context.
 
-\subsection{Code Generator}
+\subsubsection{Code Generator}
 Code generator will generate codes according to what parser returns.
 
-\subsection{Virtual Machine}
+\subsubsection{Virtual Machine}
 All the codes will be executed by virtual machine.
 
-\subsection{B-Tree}
+\subsubsection{B-Tree}
 The database file will store on the disk in form of B-tree.
 
-\subsection{Page Cache}
+\subsubsection{Page Cache}
 The B-tree module request data blocks from local disk. Page cache is responsible for reading/writing/caching these data blocks.
 
-\subsection{OS Interface}
+\subsubsection{OS Interface}
 In order to meet the requirement of portability, SQLite use a OS interface module to support POSIX or Win32. There are different implements in source codes according to operating systems. (os\_unix.c for Unix, os\_win.c for Windows, etc.)
 
 
 \section{Conclusion}
+SQLite is a popular open-source database engine. It is very lightweight meanwhile its performance is great. Many small and medium-sized websites prefer to use SQLite as their database. However, it's lightweight feature also brings many security issues. We cannot expect such a small database engine offers great secure policies. \\
+During the process of threat modeling, we identify the assets, decomposing the whole application, identifying the threats and valuing these threats. We also come up with some mitigations for these threads. \\ 
+It's not easy work for our green-hand students. However, after finishing the whole assignment, we have learnt how to consider more detailedly when building a software. \\ 
+All the supplementary images are attached in a PDF file called 'Threat modeling deliverables'.
 
-\appendices
-\section{}
-It's first appendices
-        
-\section{}
-It's second appendices
+\begin{thebibliography}{1}
+\bibitem{}
+Ray, Indrajit, et al., eds. Information Systems Security: 12th International Conference, ICISS 2016, Jaipur, India, December 16-20, 2016, Proceedings. Vol. 10063. Springer, 2016.
+\bibitem{}
+2014, Shostack, Threat Modeling: Designing for Security
+\bibitem{}
+Michael Owens. 2003. Embedding an SQL database with SQLite. Linux J. 2003, 110 (June 2003), 2-.
+\bibitem{}
+Offical documentation, https://www.sqlite.org/docs.html
+\bibitem{}
+SQLite source code analysis, http://huili.github.io/
+\end{thebibliography}
 
-    
 \end{document}
