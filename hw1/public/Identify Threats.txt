@@ -1,0 +1,71 @@
+SPOOFING :
+
+Authentication :
+
+Definition : Spoofing is considered as the acquiring an illegal access to someone's account by acquiring username,password and other authenticating information.An attacker places himself in place of the original user so as to gain his capabilities in the application.
+
+Examples : An attacker can try to authenticate into the database as an admin user and can create serious configuration changes which could make the whole database inaccessible to anyone in future.
+
+An attacker can create a web application of their own which will communicate with the databse in a way to fetch important data illegally using original user's authenticating information.
+
+Mitigations : SQLite currently uses the Ceaser-Cypher authentication (SALT Based) technique which is not considered to be as a strong encryption method.We may implement the RADIUS protocol or a two-step authentication method such as Token Cards.
+
+------------------------------------------------
+
+TAMPERING :
+
+Integrity : 
+
+Definition : Tampering is known as a malicious act of modifying the already present data in the database or modifying a flowing data over the network.
+
+Examples: An attacker can get an illegal access to the database and can modify the persistant data according to his will.
+
+Mitigations : 
+
+SQLite writes the data to a journal file for which there should be strong access control policies.
+
+Encryption of code that has the logic for communicating with databse.
+
+------------------------------------------------
+
+Repudiation : 
+
+Non-Repudiation :
+
+Definition : Repudiation is a situation where the user can deny performing a system transaction on his side and there is no way to track it in case of absence of proper audit entries.
+
+Examples : A user can deny that he performed a particular transaction on a particular date.
+
+A user can deny reception of any important mail from the system.
+
+Mitigattions : Implementing strong column constraints on each table.
+
+Auditing each and every event/transaction taking place in the modification of table data or table design.
+
+------------------------------------------------
+
+Information Disclosure :
+
+Confidentiality :
+
+Definition : Information disclosure is exposing of important information to a user who should not have the access to view it.
+
+Example : A normal user should not have the access to edit or delete the information of any table directly which is mostly the job of a Database administrator.
+
+Mitigation : Placing proper access based protocols such as DAC,MAC,RBAC and ABAC. SQLite uses journal to store the data, so, in order to provide a complete protection, implementing the protocols on the journal files is also important.
+
+-------------------------------------------------
+
+Denial of Service :
+
+Denial of Service :
+
+Definition : It is a sitation when the attacker performs such an activity which makes the system unavailable or unusable to the valid users.
+
+Example : Obstructing the traffic from user so that his requests are not able to communicate with the database.
+
+Diverting the request traffic from users to some other webpage.
+
+Mitigation : Preventing traffic coming from unknown sources by implementing Firewall securities.
+
+--------------------------------------------------

@@ -1,0 +1,33 @@
+Threat Description	Attacker acquiring the user credentials of the original user.
+Threat Target	To modify the persistent data in database.
+Risk	High
+Attack Techniques	Phishing Techniques, Decrypting URL
+Countermeasures	Using HTTPS authentication. Monitor origin of traffic.
+
+
+Threat Description	Attacker gets an illegal access to database for modifying data.
+Threat Target	Database tables.
+Risk	High
+Attack Techniques	URL manipulation, architecture flaws
+Countermeasures	Implementing strong column constraints, checksum on each table and URL encryptions.
+
+
+Threat Description	User denying performing a transaction.
+Threat Target	Data change done by mistake having no roll - back legally.
+Risk	Medium
+Attack Techniques	Cryptanalysis and Brute Force Decryption
+Countermeasures	Strong encryption of code that handles SQL queries.
+
+
+Threat Description	Incorrect user getting access to important data.
+Threat Target	No target, result of poor design. 
+Risk	Low
+Attack Techniques	NA
+Countermeasures	Inspecting the access protocols.
+
+
+Threat Description	Attacker diverts/obstructs the user traffic from reaching the application, thus, demonstrating poor performance of system.
+Threat Target	User credentials and reducing the faith in system performance.
+Risk	Medium
+Attack Techniques	DNS Spoofing
+Countermeasures	Using HTTPS authentication. Monitor origin of traffic.
