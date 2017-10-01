@@ -39,6 +39,34 @@ ID & Name & Description \\
 
 \section*{Step 2: Create an architecture overview}
 \setcounter{section}{2}
+\subsection{Functional Decomposition of SQLite}
+\clearpage
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{>{\raggedright}m{4cm} m{10cm}}
+\hline
+Function & Description \\
+\hline
+sqlite3\_open & To creat or open a database \\
+\hline
+sqlite3\_exec & To execute the SQL query or the SQL command \\
+\hline
+sqlite3Prepare & To preprocess the SQL code \\
+\hline
+sqlite3Parser & To parse the SQL code \\
+\hline
+Tokenizer & To analyze the SQL code \\
+\hline
+CodeGenerator & To translate the processed SQL code into VDBE bytecode \\
+\hline
+sqlite3VdbeExec & To analyze the SQL codes \\
+\hline
+Tokenizer & To analyze the SQL codes \\
+\hline
+\end{tabular}
+\caption{Technologies used in SQLite}
+\end{table}
+
 \subsection{Technologies}
 \begin{table}[!htbp]
 \centering
