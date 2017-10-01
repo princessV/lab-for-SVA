@@ -73,14 +73,16 @@ sqlite3Parser & To parse the SQL code \\
 \hline
 Tokenizer & To analyze the SQL code \\
 \hline
-CodeGenerator & To translate the processed SQL code into VDBE bytecode \\
+codeGenerator & To generate VDBE byte code(operators) \\
 \hline
-sqlite3VdbeExec & To analyze the SQL codes \\
+sqlite3VdbeExec & To execute the operators from SQL statement compiler \\
 \hline
-Tokenizer & To analyze the SQL codes \\
+sqlite3VdbeFinalize & To close the VDBE when the operations are completed \\
+\hline
+sqlite\_finalize() & To close SQLited \\
 \hline
 \end{tabular}
-\caption{Technologies used in SQLite}
+\caption{Functional Decomposition of SQLite}
 \end{table}
 
 \subsection{Technologies}
