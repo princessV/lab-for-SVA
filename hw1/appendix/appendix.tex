@@ -20,38 +20,22 @@
 
 
 \section*{Step 1: Identify assets}
-An asset is defined as a conceptual or concrete property which is of attacker’s importance. They can be termed as threat targets. In our case, the SQLite Database Engine, all the non-null attributes of extracted database are considered as very important assets. 
+An asset is defined as a conceptual or concrete property which is of attacker’s importance. They can be termed as threat targets. In our case, the only thing which SQlite \'wants to protect\' is the database file. Every SQL command executed will finally change the single database file. The file is the only source which SQLite reads from the local disk. Therefore, it's the only asset and is extremely significant.
+
 
 \begin{table}[htbp]
 
 \centering
-\begin{tabular}{| m{1cm} | >{\raggedright}m{4cm} | m{10cm} |}    
+\begin{tabular}{ m{1cm}  >{\raggedright}m{4cm}  m{10cm} }    
 \hline
-\multicolumn{1}{|c|}{ID} & \multicolumn{1}{c|}{Name} & \multicolumn{1}{c|}{Description} \\
+ID & Name & Description \\
 \hline
-1 & System & Assets relating to the underlying system. \\
-\hline
-1.1 & Availability of SQLite Database & The SQLite Database should be available 24 hours a day and can be accessed by all database users, database administrators, and system administrators. \\
-\hline
-1.2 & Ability to Execute SQL Command as a Database Read User & This is the ability to execute SQL select queries on the database, and thus retrieve any information stored in database. \\
-\hline
-1.3 & Ability to Execute SQL as a Database Read/Write User & This is the ability to execute SQL command, such as select, insert, and update queries on the database and thus have read and write access to any information stored in database. \\
-\hline
-2 & Database Engine & Assets relating to the SQLite database engine. \\
-\hline
-2.1 & Login Session & This is the login session of a user to the Sqlite database. This user could be a normal user, database administrator, or a system administrator. \\
-\hline
-2.2 & Data Stored in Database & The information is stored in SQLite database in various tables using different attributes, which may include sensitive information such as username, password, email address, banking details. \\
-\hline
-2.3 & Database Backup & The database backup is a copy of data from database that can be used to reconstruct that data. \\
-\hline
-2.4 & Transaction Log & It records all transactions and the database modifications made by each transaction. \\
+1 & Single Database File & The single database file contains all the information the database engine generates, including tables, views, triggers, indexes, database backup and transaction log. \\
 \hline
 \end{tabular}
 \caption{Assets of SQLite}
 \end{table}
 
-\vspace{1cm}
 
 \section*{Step 2: Create an architecture overview}
 \setcounter{section}{2}
@@ -86,7 +70,6 @@ sqlite\_finalize() & To close SQLited \\
 \end{table}
 
 \subsection{Technologies}
-\clearpage
 \begin{table}[!htbp]
 \centering
 \begin{tabular}{>{\raggedright}m{2cm} m{10cm}}
@@ -106,6 +89,7 @@ C Programming Language & C is a general-purpose, imperative computer programming
 \end{tabular}
 \caption{Technologies used in SQLite}
 \end{table}
+\clearpage
 
 \subsection{Architecture diagram}
 \begin{figure}[!htbp]
