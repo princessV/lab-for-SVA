@@ -33,33 +33,9 @@ sqlite3, database, threat modeling
 
 
 \section{Introduction to sqlite}
-\IEEEPARstart{S}QLite is a lightweight open source SQL database engine, written totally in C Programming Language. It is self-contained, serverless, zero-configuration and transcational. It takes up very few resources when running. Not only it can support different operating systems like Windows/Linux/Unix, but also it can be easily integrated with different programming languages like Java/PHP/C\#. What's more, compares to MySQL and PostgreSQL, the world's most famous open-source database engines, SQLite has a better performance on query. It has been 17 years since the alpha version of SQLite released in May 2000. Now, SQLite3 is pre-installed in almost all the Linux systems, as well as the latest macOS.
+\IEEEPARstart{S}QLite is a lightweight open source SQL database engine, written totally in C Programming Language. It is self-contained, serverless, zero-configuration and transcational. It takes up very few resources when running. Not only it can support different operating systems like Windows/Linux/Unix and also for Android, but also it can be easily integrated with different programming languages like Java/PHP/C\#. These features are enough to make it a versatile product in itself. Also, when compared to MySQL and PostgreSQL, the world's most loved open-source database engines to developers, SQLite has a better performance on query as well. It has been 17 years since the alpha version of SQLite released in May 2000. Now, SQLite3 is pre-installed in almost all the Linux systems, as well as the latest macOS.
 
-
-\section{Highlights on SQLite}
-\subsection{Lightweight}
-When optimized for size, the whole SQLite library with all features enabled is less than 500KiB in size. Unneeded features can be disabled at compile-time to further reduce the size of the library to under 300KiB if desired.
-
-\subsection{Independence}
-SQLite has very few dependencies. It can run on any operating systems. SQLite uses no external libraries or interfaces.
-
-\subsection{Transactionality}
-All changes and queries in SQLite are Atomic, Consistent, Isolated, and Durable (ACID). All changes within a single transaction in SQLite either occur completely or not at all, even if the act of writing the change out to the disk is interrupted by program/OS crash or power failure.
-
-\subsection{Serverlessness}
-SQLite does not have a separte server process like MySQL does. Without communicating with the server process, SQLite reads and writes data directly from a database file on local disk.
-
-\subsection{Single database file}
-An SQLite database is a single ordinary disk file that can be located anywhere in the directory hierarchy. There are no mutiple files or other dependencies. A single database file contains everything in the database
-
-\subsection{Cross-Platform Database File}
-A database file written on one machine can be copied to and used on a different machine with a different architecture. Big-endian or little-endian, 32-bit or 64-bit does not matter.
-
-\subsection{Manifest Typing}
-In manifest typing, the datatype is a property of the value itself, not of the column in which the value is stored. SQLite allows the user to store any value of any datatype into any column regardless of the declared type of that column.
-
-\subsection{Easy API}
-The core API is small, simple, and easy to learn. Two objects and eight methods comprise the essential elements of the SQLite interface.
+\section{Why SQLite ?}
 
 
 \section{Accomplished \& Unaccomplished}
