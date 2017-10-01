@@ -1,0 +1,589 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage{graphicx}
+\graphicspath{{public/}}
+
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=3cm, bottom=2cm}
+
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\lstset{
+    backgroundcolor=\color[RGB]{245,245,244}    
+}
+
+
+\begin{document}
+\title{\textbf{Appendix}}
+\author{\textit{Qiyang Gu, Ujjawal Sharma, Zhiyuan Li}}
+\date{}
+\maketitle
+
+
+
+\section{From Linux Command Line}
+\subsection{Compile the binary}
+WebBench is written totally by C. There is a Makefile in the top level of the directory. So we just have to run the following linux command to compile the source code.
+
+\begin{lstlisting}
+$ sudo make    
+\end{lstlisting}
+
+\noindent
+From the Makefile, the compiler is \textit{gcc}. Our operating system is Ubuntu 16.04
+
+\subsection{Dump the headers}
+We run the following command to dump the headers.
+\begin{lstlisting}
+$ objdump -h webbench
+\end{lstlisting}
+
+\noindent
+We get the following headers.
+{
+\normalsize
+\begin{lstlisting}
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .interp       0000001c  0000000000400238  0000000000400238  00000238  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .note.ABI-tag 00000020  0000000000400254  0000000000400254  00000254  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .note.gnu.build-id 00000024  0000000000400274  0000000000400274  00000274  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .gnu.hash     00000030  0000000000400298  0000000000400298  00000298  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  4 .dynsym       000003f0  00000000004002c8  00000000004002c8  000002c8  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  5 .dynstr       0000019e  00000000004006b8  00000000004006b8  000006b8  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  6 .gnu.version  00000054  0000000000400856  0000000000400856  00000856  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  7 .gnu.version_r 00000050  00000000004008b0  00000000004008b0  000008b0  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  8 .rela.dyn     00000060  0000000000400900  0000000000400900  00000900  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  9 .rela.plt     00000378  0000000000400960  0000000000400960  00000960  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 10 .init         0000001a  0000000000400cd8  0000000000400cd8  00000cd8  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 11 .plt          00000260  0000000000400d00  0000000000400d00  00000d00  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 12 .plt.got      00000008  0000000000400f60  0000000000400f60  00000f60  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .text         00000fe2  0000000000400f70  0000000000400f70  00000f70  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .fini         00000009  0000000000401f54  0000000000401f54  00001f54  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 15 .rodata       00000b84  0000000000401f60  0000000000401f60  00001f60  2**5
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 16 .eh_frame_hdr 00000054  0000000000402ae4  0000000000402ae4  00002ae4  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 17 .eh_frame     000001bc  0000000000402b38  0000000000402b38  00002b38  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 18 .init_array   00000008  0000000000602e10  0000000000602e10  00002e10  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 19 .fini_array   00000008  0000000000602e18  0000000000602e18  00002e18  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 20 .jcr          00000008  0000000000602e20  0000000000602e20  00002e20  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 21 .dynamic      000001d0  0000000000602e28  0000000000602e28  00002e28  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 22 .got          00000008  0000000000602ff8  0000000000602ff8  00002ff8  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 23 .got.plt      00000140  0000000000603000  0000000000603000  00003000  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 24 .data         00000020  0000000000603140  0000000000603140  00003140  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 25 .bss          000008c0  0000000000603160  0000000000603160  00003160  2**5
+                  ALLOC
+ 26 .comment      00000034  0000000000000000  0000000000000000  00003160  2**0
+                  CONTENTS, READONLY
+ 27 .debug_aranges 00000030  0000000000000000  0000000000000000  00003194  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 28 .debug_info   000029a7  0000000000000000  0000000000000000  000031c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 29 .debug_abbrev 00000481  0000000000000000  0000000000000000  00005b6b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 30 .debug_line   0000057b  0000000000000000  0000000000000000  00005fec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 31 .debug_str    000008d0  0000000000000000  0000000000000000  00006567  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 32 .debug_loc    0000194e  0000000000000000  0000000000000000  00006e37  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 33 .debug_ranges 000000c0  0000000000000000  0000000000000000  00008785  2**0
+                  CONTENTS, READONLY, DEBUGGING    
+\end{lstlisting}
+}
+\noindent
+In the output above, Size is the size of the loaded section, VMA represents the virtual memory address, LMA represents the logical memory address, File off is this section’s offset from the beginning of the file, Algn represents alignment, CONTENTS, ALLOC, LOAD, READONLY, DATA are flags that represent that a particular section is to be LOADED or is READONLY etc. \cite{objdump}\\
+As the screen shot showing above, there are total of 33 section headers(only partial output is shown). These sections are used by the system to hold program and control information. \\
+For example, the function of the section .iterp is that it holds the path name of a program interpreter. If the file has a loadable segment that includes the section, the section’s attributes will include the SHF\_ALLOC bit; otherwise, that bit will be off.
+
+
+\subsection{Analyze the library dependencies}
+We run the following command to print the shared library dependencies.
+\begin{lstlisting}
+$ ldd webbench
+\end{lstlisting}
+We get these library dependencies.
+
+\begin{lstlisting}
+linux-vdso.so.1 =>  (0x00007ffd99184000)
+libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fd9627f2000)
+/lib64/ld-linux-x86-64.so.2 (0x0000562626363000)
+\end{lstlisting}
+
+\noindent
+linux-gate.so.1 is the Linux Virtual Dynamic Shared Object. This file only exists in each executables address space. \\
+libc.so.6 is libc shared object version 6, which sits in /lib/i386-linux-gnu and its memory location is 0x00007ffd99184000. \\
+The last line talks about ld-linux.so version 2 under /lib. This fellow will find and load shared libraries node needs. It will prep those libraries and run them.
+
+
+\subsection{List the symbols}
+We run the following command to list the symbols.
+\begin{lstlisting}
+$ nm webbench
+\end{lstlisting}
+We get these symbols.
+
+{
+\normalsize
+\begin{lstlisting}
+                 U alarm@@GLIBC_2.2.5
+0000000000401066 t alarm_handler
+0000000000401162 t benchcore
+0000000000603150 D benchtime
+0000000000603160 B __bss_start
+00000000006031a4 B bytes
+0000000000603158 D clients
+                 U close@@GLIBC_2.2.5
+0000000000603188 b completed.7585
+                 U connect@@GLIBC_2.2.5
+0000000000603140 D __data_start
+0000000000603140 W data_start
+0000000000400fa0 t deregister_tm_clones
+0000000000401020 t __do_global_dtors_aux
+0000000000602e18 t __do_global_dtors_aux_fini_array_entry
+0000000000603148 D __dso_handle
+0000000000602e28 d _DYNAMIC
+0000000000603160 D _edata
+0000000000603a20 B _end
+                 U exit@@GLIBC_2.2.5
+00000000006031a8 B failed
+                 U fclose@@GLIBC_2.2.5
+                 U fdopen@@GLIBC_2.2.5
+0000000000401f54 T _fini
+000000000060319c B force
+0000000000603198 B force_reload
+                 U fork@@GLIBC_2.2.5
+                 U __fprintf_chk@@GLIBC_2.3.4
+0000000000401040 t frame_dummy
+0000000000602e10 t __frame_dummy_init_array_entry
+0000000000402cf0 r __FRAME_END__
+                 U fwrite@@GLIBC_2.2.5
+                 U gethostbyname@@GLIBC_2.2.5
+                 U getopt_long@@GLIBC_2.2.5
+0000000000603000 d _GLOBAL_OFFSET_TABLE_
+                 w __gmon_start__
+0000000000402ae4 r __GNU_EH_FRAME_HDR
+00000000006031e0 B host
+000000000060315c D http10
+                 U index@@GLIBC_2.2.5
+                 U inet_addr@@GLIBC_2.2.5
+0000000000400cd8 T _init
+0000000000602e18 t __init_array_end
+0000000000602e10 t __init_array_start
+0000000000401f60 R _IO_stdin_used
+                 U __isoc99_fscanf@@GLIBC_2.7
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+0000000000602e20 d __JCR_END__
+0000000000602e20 d __JCR_LIST__
+                 w _Jv_RegisterClasses
+0000000000401f50 T __libc_csu_fini
+0000000000401ee0 T __libc_csu_init
+                 U __libc_start_main@@GLIBC_2.2.5
+0000000000402900 r long_options
+0000000000401310 T main
+                 U __memcpy_chk@@GLIBC_2.3.4
+00000000006031a0 B method
+00000000006031c0 B mypipe
+0000000000603168 B optarg@@GLIBC_2.2.5
+0000000000603160 B optind@@GLIBC_2.2.5
+                 U perror@@GLIBC_2.2.5
+                 U pipe@@GLIBC_2.2.5
+                 U __printf_chk@@GLIBC_2.3.4
+0000000000603190 B proxyhost
+0000000000603154 D proxyport
+                 U putchar@@GLIBC_2.2.5
+                 U puts@@GLIBC_2.2.5
+                 U read@@GLIBC_2.2.5
+0000000000400fe0 t register_tm_clones
+0000000000603220 B request
+                 U setvbuf@@GLIBC_2.2.5
+                 U shutdown@@GLIBC_2.2.5
+                 U sigaction@@GLIBC_2.2.5
+                 U sleep@@GLIBC_2.2.5
+0000000000401095 T Socket
+                 U socket@@GLIBC_2.2.5
+00000000006031ac B speed
+                 U __stack_chk_fail@@GLIBC_2.4
+0000000000400f70 T _start
+0000000000603180 B stderr@@GLIBC_2.2.5
+                 U __strcat_chk@@GLIBC_2.3.4
+                 U strcat@@GLIBC_2.2.5
+                 U strchr@@GLIBC_2.2.5
+                 U strncasecmp@@GLIBC_2.2.5
+                 U __strncpy_chk@@GLIBC_2.3.4
+                 U strrchr@@GLIBC_2.2.5
+                 U strstr@@GLIBC_2.2.5
+                 U strtol@@GLIBC_2.2.5
+00000000006031b0 B timerexpired
+0000000000603160 D __TMC_END__
+0000000000401071 t usage
+                 U write@@GLIBC_2.2.5
+\end{lstlisting}
+}
+\noindent
+We can look at the symbol table of the binary file of Webbench and find that it shows about ninety symbols, which means that the Webbench maybe has included about ninety functions(including calling libc) in its source code. When the Webbench program starts running, it goes to \_start at first, then goes to main, and then goes to other functions of the program.
+
+
+\subsection{Dump the vm tables}
+We fistly run the webbench, then we use \textit{ps} command to see the pid, and then we dump the vm tables. 
+\begin{lstlisting}
+$ ./webbench -f http://abc.go.com/ -t 100
+$ ps -a | grep webbench
+$ cat /proc/4025/maps
+\end{lstlisting}
+We get these following vm tables.
+{
+\scriptsize
+\begin{lstlisting}
+00400000-00403000 r-xp 00000000 08:01 414416  /home/qiyanggu/Documents/WebBench/webbench
+00602000-00603000 r--p 00002000 08:01 414416  /home/qiyanggu/Documents/WebBench/webbench
+00603000-00604000 rw-p 00003000 08:01 414416  /home/qiyanggu/Documents/WebBench/webbench
+00a5a000-00a7b000 rw-p 00000000 00:00 0       [heap]
+7f9b2a179000-7f9b2a190000 r-xp 00000000 08:01 399119  /lib/x86_64-linux-gnu/libresolv-2.23.so
+7f9b2a190000-7f9b2a390000 ---p 00017000 08:01 399119  /lib/x86_64-linux-gnu/libresolv-2.23.so
+7f9b2a390000-7f9b2a391000 r--p 00017000 08:01 399119  /lib/x86_64-linux-gnu/libresolv-2.23.so
+7f9b2a391000-7f9b2a392000 rw-p 00018000 08:01 399119  /lib/x86_64-linux-gnu/libresolv-2.23.so
+7f9b2a392000-7f9b2a394000 rw-p 00000000 00:00 0 
+7f9b2a394000-7f9b2a399000 r-xp 00000000 08:01 399064  /lib/x86_64-linux-gnu/libnss_dns-2.23.so
+7f9b2a399000-7f9b2a599000 ---p 00005000 08:01 399064  /lib/x86_64-linux-gnu/libnss_dns-2.23.so
+7f9b2a599000-7f9b2a59a000 r--p 00005000 08:01 399064  /lib/x86_64-linux-gnu/libnss_dns-2.23.so
+7f9b2a59a000-7f9b2a59b000 rw-p 00006000 08:01 399064  /lib/x86_64-linux-gnu/libnss_dns-2.23.so
+7f9b2a59b000-7f9b2a59d000 r-xp 00000000 08:01 399072  /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f9b2a59d000-7f9b2a79c000 ---p 00002000 08:01 399072  /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f9b2a79c000-7f9b2a79d000 r--p 00001000 08:01 399072  /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f9b2a79d000-7f9b2a79e000 rw-p 00002000 08:01 399072  /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f9b2a79e000-7f9b2a7a9000 r-xp 00000000 08:01 399066  /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f9b2a7a9000-7f9b2a9a8000 ---p 0000b000 08:01 399066  /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f9b2a9a8000-7f9b2a9a9000 r--p 0000a000 08:01 399066  /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f9b2a9a9000-7f9b2a9aa000 rw-p 0000b000 08:01 399066  /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f9b2a9aa000-7f9b2a9b0000 rw-p 00000000 00:00 0 
+7f9b2a9b0000-7f9b2ab70000 r-xp 00000000 08:01 398967  /lib/x86_64-linux-gnu/libc-2.23.so
+7f9b2ab70000-7f9b2ad70000 ---p 001c0000 08:01 398967  /lib/x86_64-linux-gnu/libc-2.23.so
+7f9b2ad70000-7f9b2ad74000 r--p 001c0000 08:01 398967  /lib/x86_64-linux-gnu/libc-2.23.so
+7f9b2ad74000-7f9b2ad76000 rw-p 001c4000 08:01 398967  /lib/x86_64-linux-gnu/libc-2.23.so
+7f9b2ad76000-7f9b2ad7a000 rw-p 00000000 00:00 0 
+7f9b2ad7a000-7f9b2ada0000 r-xp 00000000 08:01 398939  /lib/x86_64-linux-gnu/ld-2.23.so
+7f9b2af81000-7f9b2af84000 rw-p 00000000 00:00 0 
+7f9b2af9d000-7f9b2af9f000 rw-p 00000000 00:00 0 
+7f9b2af9f000-7f9b2afa0000 r--p 00025000 08:01 398939  /lib/x86_64-linux-gnu/ld-2.23.so
+7f9b2afa0000-7f9b2afa1000 rw-p 00026000 08:01 398939  /lib/x86_64-linux-gnu/ld-2.23.so
+7f9b2afa1000-7f9b2afa2000 rw-p 00000000 00:00 0 
+7ffd0cf9b000-7ffd0cfbc000 rw-p 00000000 00:00 0 [stack]
+7ffd0cfc0000-7ffd0cfc2000 r--p 00000000 00:00 0 [vvar]
+7ffd0cfc2000-7ffd0cfc4000 r-xp 00000000 00:00 0 [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0 [vsyscall]
+
+\end{lstlisting}
+}
+\noindent
+Each row of the information above shows a region of contiguous virtual memory. For example: the first row describes the information:
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{cccccc}
+\hline
+address & permissions & offset & device & inode & pathname \\
+\hline
+08048000-0804b000 & r-xp & 00000000 & 08:01 & 281247 & /home/lizhiyuan/Downloads/WebBench/webbench \\
+\hline
+\end{tabular}
+\caption{A line in vm table}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{m{2cm} m{15cm}}
+\hline
+address & This is the starting and ending address of the region in the process's address space. \\
+\hline
+permissions & This describes how pages in the region can be accessed. There are four different permissions: read, write, execute, and shared. If a region is not shared, it is private, so a 'p' will appear instead of an 's'. If the process attempts to access memory in a way that is not permitted, a segmentation fault is generated. \\
+\hline
+offset & If the region was mapped from a file, this is the offset in the file where the mapping begins.\\
+\hline
+device & If the region was mapped from a file, this is the major and minor device number (in hex) where the file lives. \\
+\hline
+inode & If the region was mapped from a file, this is the file number. \\
+\hline
+pathname & If the region was mapped from a file, this is the name of the file. There are also special regions with names like [heap], [stack], or [vdso]. [vdso] stands for virtual dynamic shared object. It's used by system calls to switch to kernel mode. \\
+\hline
+\end{tabular}
+\caption{Descriptions for VM table fields\cite{vmap}}
+\end{table}
+
+
+\subsection{Run strace}
+We fistly run the webbench, then we use \textit{ps} command to get the pid, and then we run strace on it.
+\begin{lstlisting}
+$ ./webbench -f http://abc.go.com/ -t 100
+$ ps -a | grep webbench
+$ sudo strace -p 4114
+\end{lstlisting}
+We get the following information.
+
+{
+\scriptsize
+\begin{lstlisting}
+connect(5, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr("54.235.139.178")}, 16) = 0
+write(5, "GET / HTTP/1.0\r\nUser-Agent: WebB"..., 62) = 62
+close(5)                                = 0
+stat("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=191, ...}) = 0
+stat("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=191, ...}) = 0
+open("/etc/hosts", O_RDONLY|O_CLOEXEC)  = 5
+fstat(5, {st_mode=S_IFREG|0644, st_size=221, ...}) = 0
+read(5, "127.0.0.1\tlocalhost\n127.0.1.1\tub"..., 4096) = 221
+read(5, "", 4096)                       = 0
+close(5)                                = 0
+stat("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=191, ...}) = 0
+socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 5
+connect(5, {sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr("127.0.1.1")}, 16) = 0
+poll([{fd=5, events=POLLOUT}], 1, 0)    = 1 ([{fd=5, revents=POLLOUT}])
+sendto(5, "\207\255\1\0\0\1\0\0\0\0\0\0\3abc\2go\3com\0\0\1\0\1", 28, MSG_NOSIGNAL, NULL, 0) = 28
+poll([{fd=5, events=POLLIN}], 1, 5000)  = 1 ([{fd=5, revents=POLLIN}])
+ioctl(5, FIONREAD, [114])               = 0
+recvfrom(5, "\207\255\201\200\0\1\0\4\0\0\0\0\3abc\2go\3com\0\0\1\0\1\300\f\0\5"..., 1024, 0, {sa_family=
+AF_INET, sin_port=htons(53), sin_addr=inet_addr("127.0.1.1")}, [16]) = 114
+close(5)                                = 0
+socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 5
+connect(5, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr("50.16.243.56")}, 16) = 0
+write(5, "GET / HTTP/1.0\r\nUser-Agent: WebB"..., 62) = 62
+close(5)                                = 0
+stat("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=191, ...}) = 0
+stat("/etc/resolv.conf", {st_mode=S_IFREG|0644, st_size=191, ...}) = 0
+open("/etc/hosts", O_RDONLY|O_CLOEXEC)  = 5
+fstat(5, {st_mode=S_IFREG|0644, st_size=221, ...}) = 0
+read(5, "127.0.0.1\tlocalhost\n127.0.1.1\tub"..., 4096) = 221
+read(5, "", 4096)                       = 0
+close(5)                                = 0
+\end{lstlisting}
+}
+\noindent
+These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
+
+
+\section{From \textit{SciTools Understand}}
+\subsection{Import the source into \textit{SciTools Understand}}
+We modify the Makefile of the software. Now the Makefile is:
+{
+\scriptsize
+\begin{lstlisting}
+CFLAGS?=	-Wall -ggdb -W -O
+CC?=    gccwrapper
+LIBS?=
+LDFLAGS?=
+PREFIX?=	/usr/local/webbench
+VERSION=1.5
+TMPDIR=/tmp/webbench-$(VERSION)
+
+all:   webbench tags
+
+tags:  *.c
+	-ctags *.c
+
+install: webbench
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -s webbench $(DESTDIR)$(PREFIX)/bin
+	ln -sf $(DESTDIR)$(PREFIX)/bin/webbench $(DESTDIR)/usr/local/bin/webbench
+
+	install -d $(DESTDIR)/usr/local/man/man1
+	install -d $(DESTDIR)$(PREFIX)/man/man1
+	install -m 644 webbench.1 $(DESTDIR)$(PREFIX)/man/man1
+	ln -sf $(DESTDIR)$(PREFIX)/man/man1/webbench.1 $(DESTDIR)/usr/local/man/man1/webbench.1
+
+	install -d $(DESTDIR)$(PREFIX)/share/doc/webbench
+	install -m 644 debian/copyright $(DESTDIR)$(PREFIX)/share/doc/webbench
+	install -m 644 debian/changelog $(DESTDIR)$(PREFIX)/share/doc/webbench
+
+webbench: webbench.o Makefile
+	$(CC) $(CFLAGS) $(LDFLAGS) -o webbench webbench.o $(LIBS) 
+
+clean:
+	-rm -f *.o webbench *~ core *.core tags
+	
+tar:   clean
+	-debian/rules clean
+	rm -rf $(TMPDIR)
+	install -d $(TMPDIR)
+	cp -p Makefile webbench.c socket.c webbench.1 $(TMPDIR)
+	install -d $(TMPDIR)/debian
+	-cp -p debian/* $(TMPDIR)/debian
+	ln -sf debian/copyright $(TMPDIR)/COPYRIGHT
+	ln -sf debian/changelog $(TMPDIR)/ChangeLog
+	-cd $(TMPDIR) && cd .. && tar cozf webbench-$(VERSION).tar.gz webbench-$(VERSION)
+
+webbench.o:	webbench.c socket.c Makefile
+
+.PHONY: clean install all tar
+\end{lstlisting}
+}
+\noindent
+And then we use the \textit{buildspy} command to build the binary and
+simultaneously create an understand database.
+\begin{lstlisting}
+buildspy -db ~/Documents/sva_hw2.udb -cmd "make CC=gccwrapper"
+\end{lstlisting}
+Then we use \textit{Understand} open the .udb file. And then analyze all files.
+
+\subsection{Plot the metrics summary}
+Below is the Summary Metrics, which we were able to extract from the Understand tool. The Metrics tells a lot of details about the code for WebBench, which give us a broaden understanding of the WebBench source code. The metrics is a very important of our activity because it tells us what part of our code is dedicated to what. For example, the metrics says that the WebBench code has only 2 C files containing 7 Functions and total of 552 lines of code. It also provide some of the valuable details like the Comment to Code ratio, which can provide us with some basic information of the project.
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{r c}
+\hline
+Blank Lines & 67 \\
+\hline
+Classes & 0 \\
+\hline
+Code Lines & 367 \\
+\hline
+Comment Lines & 95 \\
+\hline
+Comment to Code Ratio & 0.26 \\
+\hline
+Declarative Statements & 42 \\
+\hline
+Executable Statements & 249 \\
+\hline
+Files & 2 \\
+\hline
+Functions & 7 \\
+\hline
+Inactive Lines & 0 \\
+\hline
+Lines & 552 \\
+\hline
+Preprocessor Lines & 26 \\
+\hline
+\end{tabular}
+\caption{Metrics}    
+\end{table}
+
+
+\subsection{Cluster Call Butterfly Graph}
+Below are the Cluster Call Butterfly Graph of few of the methods of WebBench. Cluster Call Butterfly method inform us about the relations of different methods inside a C file and also relation of a C function with any other C file. For example, in the below figure we can see that the method bench of C file webbench.c calls benchcore method of the same C file (webbench.c). Also, it is also showing that the method bench is calling a different C class called socket.c. It gives us a basic understanding about what the project cluster call like.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=5cm]{cluster_call.png}
+\caption{Cluster Call Butterfly Graph}
+\end{figure}
+
+
+\subsection{Control flow graph}
+We choose the \textit{main()}, \textit{bench()} and \textit{benchcore()} functions to generate control flow graphs. \\
+A control flow diagram provides us with the details about the flow of the logic in the code. Here, we have generated the control flow diagram of the whole project of WebBench (on the main function) and it depicts the flow of logic of the complete project. It is very helpful for the people doing reverse engineering as it provides a quick review of the logic flow from one method to the other. Just by taking a glace at the graph one can easily deduce about the function’s or class call.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=19cm]{cf_main.png}
+\caption{Control Flow for \textit{main()}}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=22cm]{cf_bench.png}
+\caption{Control Flow for \textit{bench()}}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=19cm]{cf_benchcore.png}
+\caption{Control Flow for \textit{benchcore()}}
+\end{figure}
+
+
+\subsection{Identify \textit{main()} function vulnerabilities}
+The main function of WebBench takes URL as a user provided input. The method accepts the parameter as a plain text and the method does not employ any method to encrypt/decrypt the URL. This itself is one of the major threats for the software. An attacker can flood the application with huge amount of traffic and can overload the application at any given time. Also, an unencrypted URL is highly vulnerable to URL manipulation and thus can depict some serious behavior in the system. 
+
+\noindent Most of the vulnerabilities are discovered due to some unwanted behaviors in the system produced by inefficient code. However, any inefficient system does not start demonstrating such behaviors from the first day, the system has to wait for a powerful enough adversary to take over the capability of any functionality. So, it wont be incorrect if we assume that most of the vulnerabilities are product of poor implementation of code. The people who discover these kind of behaviors have sound knowledge of implementation of accurate solution of the requirement.
+
+
+\section{Reverse engineering ELF files}
+\subsection{Plot the entropy}
+We firstly use \textit{http://binvis.io/} to generate entropy of webbench. Entropy of a binary file provide us with a detail about the degree of disorder which it possess. If we have a data set where all the elements have the same value ,the amount of disorder will be nil and the entropy will be zero. If a data set has maximum amount of heteroginity,it is said to contain maximum entropy. Reverse enginnering mainly focuses on high order of entropy as the concerned data firstly provide them with the information about the compressed data and cryptographic data.\cite{plot_ent}
+
+\subsection{Write Python script}
+We write a Python script to read the ELF file and print some information out. The following is the script.
+{
+\scriptsize
+\begin{lstlisting}
+def parser():
+    file = open('webbench', 'rb')
+    
+    file.seek(0x0, 0)
+    str1 = file.read(4)
+    file.seek(0x1F68, 0)
+    str2 = file.read(8)
+    file.seek(0x609c, 0)
+    str3 = readSkip(file.read(348))
+
+    print(str1.decode('ascii'))
+    print(str2.decode('ascii'))
+    print(str3)
+    #print(int(str3, 16))
+
+def readSkip(buffer):
+    ba = [hex(x) for x in buffer]
+    strs = ''
+    for x in ba:
+        if int(x, 16) <= 0xff:
+            
+            if int(x, 16) == 0x1 or int(x, 16) == 0x2 or int(x, 16) == 0x3 or int(x, 16) == 0x4 or int(x, 16) == 0x5:
+                continue
+            strs += chr(int(x, 16))
+    return strs;
+
+if __name__ == '__main__':
+    parser()
+\end{lstlisting}
+}
+\noindent
+When running the script, we get the file type, file name, and some including information like socket.c, string3.h, etc. Here is the screenshot.
+
+\begin{figure}[!htbp]
+\includegraphics[height=1.3cm]{script.jpg}
+\caption{Script Execution Results}
+\end{figure}
+
+\begin{thebibliography}{10}
+\bibitem{objdump}
+L. File), \"Linux Objdump Command Examples (Disassemble a Binary File)\", Thegeekstuff.com. [Online]. Available: http://www.thegeekstuff.com/2012/09/objdump-examples/?utm\_source=feedburner.
+
+\bibitem{vmap}
+U. /proc/id/maps, \"Understanding Linux /proc/id/maps\", Stackoverflow.com. [Online]. Available: https://stackoverflow.com/questions/1401359/understanding-linux-proc-id-maps.
+
+\bibitem{plot_ent}
+\"cortesi - Visualizing entropy in binary files\", Corte.si. [Online]. Available: https://corte.si/posts/visualisation/entropy/index.html.
+\end{thebibliography}
+\end{document}
