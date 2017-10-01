@@ -35,6 +35,7 @@ sqlite3, database, threat modeling
 \section{Introduction to sqlite}
 \IEEEPARstart{S}QLite is a lightweight open source SQL database engine, written totally in C Programming Language. It is self-contained, serverless, zero-configuration and transcational. It takes up very few resources when running. Not only it can support different operating systems like Windows/Linux/Unix and also for Android, but also it can be easily integrated with different programming languages like Java/PHP/C\#. These features are enough to make it a versatile product in itself. Also, when compared to MySQL and PostgreSQL, the world's most loved open-source database engines to developers, SQLite has a better performance on query as well. It has been 17 years since the alpha version of SQLite released in May 2000. Now, SQLite3 is pre-installed in almost all the Linux systems, as well as the latest macOS.
 
+
 \section{Why SQLite ?}
 As the use of SQLite is increasing everyday, it has become important to keep an eye on what issues the consumers can face in case of any attack. One of the main reason for selecting SQLite is because it is getting widely used in electronic devices and robots. As IoT is expanding its tentacles everyday in one or the other form, it has itself become an important topic of study. A study here means the behavior the product based on IoT can demostrate in case of some adversaries. Almost most of the electronic devices around us can have the SQLite implemented in it. It even has good performance as compared to other engines in network connectivity operations. Apart from the few mentioned above, below are some other famous applications of SQLite:
 
@@ -47,77 +48,55 @@ As the use of SQLite is increasing everyday, it has become important to keep an 
 4)As a cache: Many web applications, for reducing latency use SQLite. It gives the developer a flexibility to make their application to operate in a local environment rather than using the network connection to connect to the main database and it could also run in case of network outages(offline state).
 
 
+\section{Project execution highlights}
+
+
+\section{Findings}
+
+
 \section{Accomplished \& Unaccomplished}
 \subsection{Accomplished}
-\subsubsection{}
-Designed to be used in embedded systems, SQLite is very lightweight so that it take up very few system resources when running.
 
-\subsubsection{}
-The performance of reading/writing is high in embedded systems.
-
-\subsubsection{}
-ACID (Atomic, Consistent, Isolated, and Durable) transactions are enabled.
-
-\subsubsection{}
-User can freely copy the database file from one system to another.
-
-\subsubsection{}
-Users can easily use the APIs it provides.
-
-\subsubsection{}
-Most of mainstream programing languages support SQLite. It is convient for developers.
 
 
 \subsection{Unaccomplished}
-\subsubsection{}
-User systems. (Different users should have different levels of privilege to certain table.)
-
-\subsubsection{}
-Stable Journaling file system.
-
-\subsubsection{}
-Good performance on writing operation. (Insert, Update, etc)
-
-\subsubsection{}
-Good performance on high concurrency and large data.
-
-\subsubsection{}
-Separte deployment of database. (SQLite use single database file.)
 
 
-\section{Architecture}
-SQLite has a delicate architecture. It consists of eight independent modules in three sub-systems.
-\subsection{Overview}
-\begin{figure}[!htbp]
-\centering
-\includegraphics[height=7cm]{arch_and_module}
-\caption{Modules}
-\end{figure}
 
-\subsection{Modules}
-\subsubsection{Front-end Interface}
-The user or program interacts with database file via front-end interface.
 
-\subsubsection{Tokenizer}
-Tokenizer accpets SQL statements transmitted by front-end interface. It will split the statements into tokens. And then, these tokens will be sent to parser.
+% \section{Architecture}
+% SQLite has a delicate architecture. It consists of eight independent modules in three sub-systems.
+% \subsection{Overview}
+% \begin{figure}[!htbp]
+% \centering
+% \includegraphics[height=7cm]{arch_and_module}
+% \caption{Modules}
+% \end{figure}
 
-\subsubsection{Parser}
-Parser will assign each token a specific meaning accord to the context.
+% \subsection{Modules}
+% \subsubsection{Front-end Interface}
+% The user or program interacts with database file via front-end interface.
 
-\subsubsection{Code Generator}
-Code generator will generate codes according to what parser returns.
+% \subsubsection{Tokenizer}
+% Tokenizer accpets SQL statements transmitted by front-end interface. It will split the statements into tokens. And then, these tokens will be sent to parser.
 
-\subsubsection{Virtual Machine}
-All the codes will be executed by virtual machine.
+% \subsubsection{Parser}
+% Parser will assign each token a specific meaning accord to the context.
 
-\subsubsection{B-Tree}
-The database file will store on the disk in form of B-tree.
+% \subsubsection{Code Generator}
+% Code generator will generate codes according to what parser returns.
 
-\subsubsection{Page Cache}
-The B-tree module request data blocks from local disk. Page cache is responsible for reading/writing/caching these data blocks.
+% \subsubsection{Virtual Machine}
+% All the codes will be executed by virtual machine.
 
-\subsubsection{OS Interface}
-In order to meet the requirement of portability, SQLite use a OS interface module to support POSIX or Win32. There are different implements in source codes according to operating systems. (os\_unix.c for Unix, os\_win.c for Windows, etc.)
+% \subsubsection{B-Tree}
+% The database file will store on the disk in form of B-tree.
+
+% \subsubsection{Page Cache}
+% The B-tree module request data blocks from local disk. Page cache is responsible for reading/writing/caching these data blocks.
+
+% \subsubsection{OS Interface}
+% In order to meet the requirement of portability, SQLite use a OS interface module to support POSIX or Win32. There are different implements in source codes according to operating systems. (os\_unix.c for Unix, os\_win.c for Windows, etc.)
 
 
 \section{Conclusion}
