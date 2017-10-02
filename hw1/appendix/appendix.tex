@@ -47,23 +47,33 @@ ID & Name & Description \\
 \hline
 Function & Description \\
 \hline
-sqlite3\_open & To creat or open a database \\
+sqlite3\_open() & To create or open a database \\
 \hline
-sqlite3\_exec & To execute the SQL query or the SQL command \\
+sqlite3\_exec() & To execute the SQL query or the SQL command \\
 \hline
-sqlite3Prepare & To preprocess the SQL code \\
+sqlite3Prepare() & To preprocess the SQL code \\
 \hline
-sqlite3Parser & To parse the SQL code \\
+sqlite3Parser() & To parse the SQL code \\
 \hline
-Tokenizer & To analyze the SQL code \\
+Tokenizer() & To analyze the SQL code \\
 \hline
-codeGenerator & To generate VDBE byte code(operators) \\
+codeGenerator() & To generate VDBE byte code(operators) \\
 \hline
-sqlite3VdbeExec & To execute the operators from SQL statement compiler \\
+sqlite3_step() & To initialize the process of executing the operators \\
 \hline
-sqlite3VdbeFinalize & To close the VDBE when the operations are completed \\
+sqlite3VdbeCreate() & To create a VDBE \\
 \hline
-sqlite\_finalize() & To close SQLite \\
+sqlite3VdbeRewin() & To initialize a VDBE \\
+\hline
+sqlite3VdbeMakeRead() & To prepare the executing process \\
+\hline
+sqlite3VdbeExec() & To execute the operators from SQL statement compiler \\
+\hline
+sqlite3VdbeFinalize() & To close the VDBE when the operations are completed \\
+\hline
+sqlite3VdbeDelete() & To delete the VDBE \\
+\hline
+sqlite3\_close() & To close SQLite \\
 \hline
 \end{tabular}
 \caption{Functional Decomposition of SQLite}
