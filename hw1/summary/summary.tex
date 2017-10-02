@@ -12,7 +12,7 @@
 \begin{document}
 
 % ------------ title ------------
-\title{Summary Report}
+\title{Threat Modeling for SQLite}
 \author{Qiyang~Gu, Ujjawal~Sharma, Zhiyuan~Li}
 \maketitle
 % ------------ title end ------------
@@ -48,6 +48,16 @@ As the use of SQLite is increasing everyday, it has become important to keep an 
 \item Lightweight and moderate traffic websites: Developers who have relatively low requirement in terms of traffic and content, love to use such lightweight databases.
 \item Websites handling large datasets: When the database engine is lightweight, it is able to handle large datasets efficiently.
 \item As a cache: Many web applications, for reducing latency use SQLite. It gives the developer a flexibility to make their application to operate in a local environment rather than using the network connection to connect to the main database and it could also run in case of network outages(offline state).
+\end{itemize}
+
+\section{Goals}
+Before we start, we set up our goals on this projects. So that we can focus on what we need to do. These goals inclues,
+\begin{itemize}
+\item To explore how database engine works (not only SQLite, but also other database engines like MySQL, PostgreSQL) and what is the architecture of a database engine. To know the advantadges and disadvantadges of SQLite.
+\item To figure out what vulnerabilities may exist in SQLite.
+\item To find ways in which we may fix these vulnerabilities.
+\item To learn what is threat modeling, how threat modeling works and why we need to do threat modeling.
+\item To generate reports for threat modeling. These reports can be references for other threat modeling work in the future.
 \end{itemize}
 
 
@@ -105,8 +115,7 @@ As the use of SQLite is increasing everyday, it has become important to keep an 
 \section{Conclusion}
 SQLite is a popular open-source database engine. It is very lightweight meanwhile its performance is great. Many small and medium-sized websites prefer to use SQLite as their database. However, it's lightweight feature also brings many security issues. We cannot expect such a small database engine offers great secure policies. \\
 During the process of threat modeling, we identify the assets, decomposing the whole application, identifying the threats and valuing these threats. We also come up with some mitigations for these threads. \\ 
-It's not easy work for our green-hand students. However, after finishing the whole assignment, we have learnt how to consider more detailedly when building a software. \\ 
-All the supplementary images are attached in a PDF file called \'Threat modeling deliverables\'. 
+It's not easy work for our green-hand students. However, after finishing the whole assignment, we have learnt how to consider more detailedly when building a software. 
 
 \begin{thebibliography}{10}
 \bibitem{q1}
