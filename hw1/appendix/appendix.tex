@@ -69,6 +69,10 @@ sqlite3VdbeMakeRead() & To prepare the executing process \\
 \hline
 sqlite3VdbeExec() & To execute the operators from SQL statement compiler \\
 \hline
+sqlite3VdbeFreeCursor() & To turn off the VDBE cursor and release all resources used by the cursor \\
+\hline
+closeAllCursors() & To turn off all the cursors and release any occupied VDBE in dynamic memory \\
+\hline
 sqlite3VdbeFinalize() & To close the VDBE when the operations are completed \\
 \hline
 sqlite3VdbeDelete() & To delete the VDBE \\
