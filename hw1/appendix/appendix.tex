@@ -120,9 +120,13 @@ C Programming Language & C is a general-purpose, imperative computer programming
 \setcounter{subsection}{0}
 \subsection{Security Profiles}
 \clearpage
+
+
 \begin{table}[!htbp]
+\footnotesize
 \centering
 \begin{tabular}{>{\raggedright}m{3cm} m{13cm}}
+
 \hline
 Input Validation & \tabincell{m{13cm}}{1. Is all input data validated? \\ Not all the input is validated, users can type any SQL statements or other command to the front-end interface. Some invalid statements will be omitted by Tokenizer. Other statements, which may be malicious, will be executed. \\ 2. Could an attacker inject commands or malicious data into the application? \\ Yes. The attacker can conduct SQL injection into the application that based on SQLite \\ 3.	Is data validated as it is passed between separate trust boundaries (by the recipient entry point)? \\ Not all the data is validated as it is passed between separate trust bound. \\ 4. Can data in the database be trusted? \\ All the data in the database is created by user/program, so not all the data can be trusted.} \\
 \hline
