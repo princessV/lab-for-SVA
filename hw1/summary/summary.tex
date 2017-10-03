@@ -75,8 +75,10 @@ Based on our goals, below are things we primarily do in the project.
 \end{itemize}
 \end{itemize}
 
+\section{Findings}
+There are some findings through the threat modeling process. First of all, SQLite is such a small binary so it does not have any authentication mechanism. No administrators, no password, no authorizations. And everything contains in a single database file which can be read/written by SQLite. This feature makes SQLite very vulnerable. A file-copy operation will get all the information stored in the database. Therefore, we try to come up with ideas to mitigate the threat.
 
-
+Also, we find the lines of codes in SQLite is actually much larger than we expect. We thought there may be only 30k-40k lines of codes in SQLite. However, there were actually 200k lines. It brought us much trouble when getting into details of the source code. So we searched online and find a website which analyzes the source code. And we are inspired by it.\cite{cite_source_code_analysis}
 
 \section{Accomplished \& Unaccomplished}
 \subsection{Accomplished}
@@ -92,8 +94,10 @@ Based on our goals, below are things we primarily do in the project.
 
 
 \section{Conclusion}
-SQLite is a popular open-source database engine. It is very lightweight meanwhile its performance is great. Many small and medium-sized websites prefer to use SQLite as their database. However, it's lightweight feature also brings many security issues. We cannot expect such a small database engine offers great secure policies. \\
-During the process of threat modeling, we identify the assets, decomposing the whole application, identifying the threats and valuing these threats. We also come up with some mitigations for these threads. \\ 
+SQLite is a popular open-source database engine. It is very lightweight meanwhile its performance is great. Many small and medium-sized websites prefer to use SQLite as their database. However, it's lightweight feature also brings many security issues. We cannot expect such a small database engine offers great secure policies.
+
+During the process of threat modeling, we identify the assets, decomposing the whole application, identifying the threats and valuing these threats. We also come up with some mitigations for these threads.
+
 It's not easy work for our green-hand students. However, after finishing the whole assignment, we have learnt how to consider more detailedly when building a software. 
 
 \section*{Acknowledgment}
