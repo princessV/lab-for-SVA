@@ -62,9 +62,17 @@ Before we start, we set up our goals on this projects. So that we can focus on w
 
 
 \section{Project execution highlights}
-Below are things we 
+Based on our goals, below are things we primarily do in the project.
 \begin{itemize}
-\item Installed SQLite, do feature tests on Linux and macOS.
+\item Installed SQLite, do feature tests on Linux and macOS. Figured out what it provides to users and how it works.
+\item Downloaded the source code from offical website. Tried to figure out the structure, main function of the source codes. Tried to draw a architecture diagram.
+\item Followed the homework instructions to do threat modeling on SQLite, including
+\begin{itemize}
+\item Identify assets. On this step, we find the only asset of sqlite.
+\item Create an architecture overview. On this step, we use Microsoft Threat Modeling Tool to analysis SQLite based on our understandings (like the functions, modules.)
+\item Decompose the application. On this step, we refine our high-level threat modeling and discuss the questions in security profile.
+\item Identify the threats, document and rate these threats.
+\end{itemize}
 \end{itemize}
 
 \section{Findings}
