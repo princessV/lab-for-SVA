@@ -20,7 +20,7 @@
 
 % ------------ abstract ------------
 \begin{abstract}
- Threat modeling is a technique meant to build secure systems by searching for the potential threats in systems. The concepts of threat model are based on assets which are worth being protected. Many a times, while validating a functionality of product, we come across some of the assets which have specific vulnerabilities which can be exploited by attackers. Security analysts can identify which component in a system that would have the highest risk of being attacked by thinking from the perspective of the attacker. These components should have highest priorities in security assessments. The more complex a product,the more rigorous and thorough should be the analysis. The importance of threat modelling is more when we are dealing with a product which is responsible for handling crucial information. The best example of such a product can be any database. A Database is an essential and very significant part in an enterprise. It contains pivotal information about whole system and always become the target of attackers. In this report we choose on open - source database engine SQLite, following the threat modeling process of Microsoft,and created a threat model for SQLite.
+ Threat modeling is a technique meant to build secure systems by searching for the potential threats in systems.\cite{cite_wiki_threat_modeling} The concepts of threat model are based on assets which are worth being protected. Many a times, while validating a functionality of product, we come across some of the assets which have specific vulnerabilities which can be exploited by attackers. Security analysts can identify which component in a system that would have the highest risk of being attacked by thinking from the perspective of the attacker. These components should have highest priorities in security assessments. The more complex a product,the more rigorous and thorough should be the analysis. The importance of threat modelling is more when we are dealing with a product which is responsible for handling crucial information. The best example of such a product can be any database. A Database is an essential and very significant part in an enterprise. It contains pivotal information about whole system and always become the target of attackers. In this report we choose on open - source database engine SQLite, following the threat modeling process of Microsoft,and created a threat model for SQLite.\cite{cite_wiki_threat_modeling}
 \end{abstract}
 % ------------ abstarct end ------------
 
@@ -33,7 +33,7 @@ sqlite3, database, threat modeling
 
 
 \section{Introduction to sqlite}
-\IEEEPARstart{S}QLite is a lightweight open source SQL database engine, written totally in C Programming Language. It is self-contained, serverless, zero-configuration and transcational. It takes up very few resources when running. Not only it can support different operating systems like Windows/Linux/Unix and also for Android, but also it can be easily integrated with different programming languages like Java/PHP/C\#. These features are enough to make it a versatile product in itself. Also, when compared to MySQL and PostgreSQL, the world's most loved open-source database engines to developers, SQLite has a better performance on query as well. It has been 17 years since the alpha version of SQLite released in May 2000. Now, SQLite3 is pre-installed in almost all the Linux systems, as well as the latest macOS.
+\IEEEPARstart{S}QLite is a lightweight open source SQL database engine, written totally in C Programming Language. It is self-contained, serverless, zero-configuration and transcational. It takes up very few resources when running. Not only it can support different operating systems like Windows/Linux/Unix and also for Android, but also it can be easily integrated with different programming languages like Java/PHP/C\#. These features are enough to make it a versatile product in itself. Also, when compared to MySQL and PostgreSQL, the world's most loved open-source database engines to developers, SQLite has a better performance on query as well. It has been 17 years since the alpha version of SQLite released in May 2000. Now, SQLite3 is pre-installed in almost all the Linux systems, as well as the latest macOS.\cite{cite_sqlite_home_page}
 
 
 
@@ -62,12 +62,20 @@ Before we start, we set up our goals on this projects. So that we can focus on w
 
 
 \section{Project execution highlights}
-Below are things we 
+Based on our goals, below are things we primarily do in the project.
 \begin{itemize}
-\item Installed SQLite, do feature tests on Linux and macOS.
+\item Installed SQLite, do feature tests on Linux and macOS. Figured out what it provides to users and how it works.
+\item Downloaded the source code from offical website. Tried to figure out the structure, main function of the source codes. Tried to draw a architecture diagram.
+\item Followed the homework instructions to do threat modeling on SQLite, including
+\begin{itemize}
+\item Identify assets. On this step, we find the only asset of sqlite.
+\item Create an architecture overview. On this step, we use Microsoft Threat Modeling Tool to analysis SQLite based on our understandings (like the functions, modules.)
+\item Decompose the application. On this step, we refine our high-level threat modeling and discuss the questions in security profile.
+\item Identify the threats, document and rate these threats.
+\end{itemize}
 \end{itemize}
 
-\section{Findings}
+
 
 
 \section{Accomplished \& Unaccomplished}
@@ -92,16 +100,14 @@ It's not easy work for our green-hand students. However, after finishing the who
 We would like to thank Jay for his hints and instructions to do the project. We once got some misunderstanding on the part of the project, which makes us somewhat \'uncomfortable\' to do the project. His passion on the work does touch us. We are sorry maybe we still do not finish the project very well because of too many dues these days, but we will try our best to work on homework in the future.
 
 \begin{thebibliography}{10}
-\bibitem{q1}
-R1ay, Indrajit, et al., eds. Information Systems Security: 12th International Conference, ICISS 2016, Jaipur, India, December 16-20, 2016, Proceedings. Vol. 10063. Springer, 2016.
-\bibitem{q2}
+\bibitem{cite_wiki_threat_modeling}
+\"Threat model\", En.wikipedia.org. [Online]. Available: https://en.wikipedia.org/wiki/Threat\_model.
+\bibitem{cite_book_threat_modeling}
 2014, Shostack, Threat Modeling: Designing for Security
-\bibitem{q3}
-Michael Owens. 2003. Embedding an SQL database with SQLite. Linux J. 2003, 110 (June 2003), 2-.
-\bibitem{q4}
-Offical documentation, https://www.sqlite.org/docs.html
-\bibitem{q5}
-SQLite source code analysis, http://huili.github.io/
+\bibitem{cite_sqlite_home_page}
+\"SQLite Home Page\", Sqlite.org. [Online]. Available: https://www.sqlite.org/index.html.
+\bibitem{cite_source_code_analysis}
+\"SQlite source code analysis\", Huili.github.io. [Online]. Available: http://huili.github.io/.
 \end{thebibliography}
 
 \end{document}

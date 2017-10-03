@@ -176,7 +176,7 @@ Auditing and logging & \tabincell{m{13cm}}{1. How are log files secured? \\ The 
 \hline
 Property & Threat Definition & Examples & Mitigations \\
 \hline
-Authentication & Spoofing is considered as the acquiring an illegal access to someone's account by acquiring username, password and other authenticating information. An attacker places himself in place of the original user so as to gain his capabilities in the application. & \tabincell{m{5cm}}{1. An attacker can try to authenticate into the database as an admin user and can create serious configuration changes which could make the whole database inaccessible to anyone in future. \\ 2. An attacker can create a web application of their own which will communicate with the databse in a way to fetch important data illegally using original user's authenticating information.} & SQLite currently uses the Ceaser-Cypher authentication (SALT Based) technique which is not considered to be as a strong encryption method. We may implement the RADIUS protocol or a two-step authentication method such as Token Cards. \\
+Authentication & Spoofing is considered as the acquiring an illegal access to someone's account by acquiring username, password and other authenticating information. An attacker places himself in place of the original user so as to gain his capabilities in the application. & \tabincell{m{5cm}}{1. An attacker can try to authenticate into the database as an admin user and can create serious configuration changes which could make the whole database inaccessible to anyone in future. \\ 2. An attacker can create a web application of their own which will communicate with the databse in a way to fetch important data illegally using original user's authenticating information.} & Though by default SQLite does not provide any authentication, if needed we can enable it by running the usercode.c script.Still, SQLite currently uses the Ceaser-Cypher authentication (SALT Based) technique which is not considered to be as a strong encryption method. We may implement the RADIUS protocol or a two-step authentication method such as Token Cards. \\
 \hline
 \end{tabular}
 \caption{Spoofing}
@@ -190,12 +190,13 @@ Authentication & Spoofing is considered as the acquiring an illegal access to so
 \hline
 Property & Threat Definition & Examples & Mitigations \\
 \hline
-Integrity & Tampering is known as a malicious act of modifying the already present data in the database or modifying a flowing data over the network. & An attacker can get an illegal access to the database and can modify the persistant data according to his will. & \tabincell{m{4cm}}{1. SQLite writes the data to a journal file for which there should be strong access control policies. \\ 2. Encryption of code that has the logic for communicating with databse.} \\
+Integrity & Tampering is known as a malicious act of modifying the already present data in the database or modifying a flowing data over the network. & An attacker can get an illegal access to the database and can modify the persistant data according to his will. & \tabincell{m{4cm}}{1. SQLite writes the data to a journal file for which there should be strong access control policies. \\ 2. Strong logic for modifying/writing data to database should be placed so that it is difficult for the attackers to recreate the journal writing technique.} \\
 \hline
 \end{tabular}
 \caption{Tampering}
 \end{table}
 
+\vspace{2cm}
 
 \subsubsection{Repudiation}
 \begin{table}[!htbp]
@@ -204,7 +205,7 @@ Integrity & Tampering is known as a malicious act of modifying the already prese
 \hline
 Property & Threat Definition & Examples & Mitigations \\
 \hline
-Non-Repudiation & Repudiation is a situation where the user can deny performing a system transaction on his side and there is no way to track it in case of absence of proper audit entries. & \tabincell{m{5cm}}{1. A user can deny that he performed a particular transaction on a particular date. \\ 2. A user can deny reception of any important mail from the system.} & \tabincell{m{4cm}}{1. Implementing strong column constraints on each table. \\ 2. Auditing each and every event/transaction taking place in the modification of table data or table design.} \\
+Non-Repudiation & Repudiation is a situation where the user can deny performing a system transaction on his side and there is no way to track it in case of absence of proper audit entries. & \tabincell{m{5cm}}{1. A user can deny that he performed a particular transaction on a particular date. \\ 2. A user can deny reception of any important mail from the system.} & \tabincell{m{4cm}}{SQLite does not support auditing explicitely and users have to come up with their own manual techniques to implement this feature as of now, this gives the security in the hands of database administratora which may not be able to understand each and every aspects of database writing. It would be better to provide this out of the box in SQLite.} \\
 \hline
 \end{tabular}
 \caption{Repudiation}
@@ -212,20 +213,6 @@ Non-Repudiation & Repudiation is a situation where the user can deny performing 
 
 
 \subsubsection{Information Disclosure}
-
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{| m{2.5cm} | m{4cm} | m{5cm} | m{4cm} |}
-\hline
-Property & Threat Definition & Examples & Mitigations \\
-\hline
-Confidentiality & Information disclosure is exposing of important information to a user who should not have the access to view it. & A normal user should not have the access to edit or delete the information of any table directly which is mostly the job of a Database administrator. & Placing proper access based protocols such as DAC, MAC, RBAC and ABAC. SQLite uses journal to store the data, so, in order to provide a complete protection, implementing the protocols on the journal files is also important. \\
-\hline
-\end{tabular}
-\caption{Information Disclosure}
-\end{table}
-
-\subsubsection{Denial of Service}
 \clearpage
 \begin{table}[!htbp]
 \centering
@@ -233,7 +220,20 @@ Confidentiality & Information disclosure is exposing of important information to
 \hline
 Property & Threat Definition & Examples & Mitigations \\
 \hline
-Denial of Service & It is a sitation when the attacker performs such an activity which makes the system unavailable or unusable to the valid users. & \tabincell{m{5cm}}{1. Obstructing the traffic from user so that his requests are not able to communicate with the database. \\ 2. Diverting the request traffic from users to some other webpage.} & Preventing traffic coming from unknown sources by implementing Firewall securities. \\
+Confidentiality & Information disclosure is exposing of important information to a user who should not have the access to view it. & A normal user should not have the access to edit or delete the information of any table directly which is mostly the job of a Database administrator. & Placing proper access based protocols configurations at the time of database setup such as DAC, MAC, RBAC and ABAC. SQLite uses journal to store the data, so, in order to provide a complete protection, implementing the protocols on the journal files is also important. \\
+\hline
+\end{tabular}
+\caption{Information Disclosure}
+\end{table}
+
+\subsubsection{Denial of Service}
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{| m{2.5cm} | m{4cm} | m{5cm} | m{4cm} |}
+\hline
+Property & Threat Definition & Examples & Mitigations \\
+\hline
+Denial of Service & It is a sitation when the attacker performs such an activity which makes the system unavailable or unusable to the valid users. & \tabincell{m{5cm}}{1. Obstructing the traffic from user so that his requests are not able to communicate with the database. \\ 2. Diverting the request traffic from users to some other webpage.} & SQLite should have features to identify traffic coming from unknown sources. For this, dedicated Firewall securities can be implemented.\\
 \hline
 \end{tabular}
 \caption{Denial of Service}
@@ -309,11 +309,11 @@ Countermeasures & Strong encryption of code that handles SQL queries. \\
 \centering
 \begin{tabular}{m{4cm} m{11cm}}
 \hline
-Threat Description & Incorrect user getting access to important data. \\
+Threat Description & Unidentifiable user getting direct access to important database file. \\
 \hline
 Threat Target & No target, result of poor design. \\
 \hline
-Risk & Low \\
+Risk & Medium \\
 \hline
 Attack Techniques & N/A \\
 \hline
