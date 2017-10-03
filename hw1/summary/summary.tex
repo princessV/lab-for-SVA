@@ -62,7 +62,18 @@ Before we start, we set up our goals on this projects. So that we can focus on w
 
 
 \section{Project execution highlights}
-
+Based on our goals, below are things we primarily do in the project.
+\begin{itemize}
+\item Installed SQLite, do feature tests on Linux and macOS. Figured out what it provides to users and how it works.
+\item Downloaded the source code from offical website. Tried to figure out the structure, main function of the source codes. Tried to draw a architecture diagram.
+\item Followed the homework instructions to do threat modeling on SQLite, including
+\begin{itemize}
+\item Identify assets. On this step, we find the only asset of sqlite.
+\item Create an architecture overview. On this step, we use Microsoft Threat Modeling Tool to analysis SQLite based on our understandings (like the functions, modules.)
+\item Decompose the application. On this step, we refine our high-level threat modeling and discuss the questions in security profile.
+\item Identify the threats, document and rate these threats.
+\end{itemize}
+\end{itemize}
 
 \section{Findings}
 
@@ -77,45 +88,16 @@ Before we start, we set up our goals on this projects. So that we can focus on w
 
 
 
-% \section{Architecture}
-% SQLite has a delicate architecture. It consists of eight independent modules in three sub-systems.
-% \subsection{Overview}
-% \begin{figure}[!htbp]
-% \centering
-% \includegraphics[height=7cm]{arch_and_module}
-% \caption{Modules}
-% \end{figure}
 
-% \subsection{Modules}
-% \subsubsection{Front-end Interface}
-% The user or program interacts with database file via front-end interface.
-
-% \subsubsection{Tokenizer}
-% Tokenizer accpets SQL statements transmitted by front-end interface. It will split the statements into tokens. And then, these tokens will be sent to parser.
-
-% \subsubsection{Parser}
-% Parser will assign each token a specific meaning accord to the context.
-
-% \subsubsection{Code Generator}
-% Code generator will generate codes according to what parser returns.
-
-% \subsubsection{Virtual Machine}
-% All the codes will be executed by virtual machine.
-
-% \subsubsection{B-Tree}
-% The database file will store on the disk in form of B-tree.
-
-% \subsubsection{Page Cache}
-% The B-tree module request data blocks from local disk. Page cache is responsible for reading/writing/caching these data blocks.
-
-% \subsubsection{OS Interface}
-% In order to meet the requirement of portability, SQLite use a OS interface module to support POSIX or Win32. There are different implements in source codes according to operating systems. (os\_unix.c for Unix, os\_win.c for Windows, etc.)
 
 
 \section{Conclusion}
 SQLite is a popular open-source database engine. It is very lightweight meanwhile its performance is great. Many small and medium-sized websites prefer to use SQLite as their database. However, it's lightweight feature also brings many security issues. We cannot expect such a small database engine offers great secure policies. \\
 During the process of threat modeling, we identify the assets, decomposing the whole application, identifying the threats and valuing these threats. We also come up with some mitigations for these threads. \\ 
 It's not easy work for our green-hand students. However, after finishing the whole assignment, we have learnt how to consider more detailedly when building a software. 
+
+\section*{Acknowledgment}
+We would like to thank Jay for his hints and instructions to do the project. We once got some misunderstanding on the part of the project, which makes us somewhat \'uncomfortable\' to do the project. His passion on the work does touch us. We are sorry maybe we still do not finish the project very well because of too many dues these days, but we will try our best to work on homework in the future.
 
 \begin{thebibliography}{10}
 \bibitem{q1}
