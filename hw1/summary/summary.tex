@@ -81,11 +81,11 @@ There are some findings through the threat modeling process. First of all, SQLit
 Also, we find the lines of codes in SQLite is actually much larger than we expect. We thought there may be only 30k-40k lines of codes in SQLite. However, there were actually 200k lines. It brought us much trouble when getting into details of the source code. So we searched online and find a website which analyzes the source code. And we are inspired by it.\cite{cite_source_code_analysis}
 
 \section{Accomplished \& Unaccomplished}
-\subsection{Accomplished}
+\subsection{Accomplished \\ In general, we accommplish the conduction of threat modeling of SQLite. Specifically, we identified the assets of SQLite, the database files, which are the important assets we need to protect. And also, we analyzed the SQLite project and decomposed the SQLite into some specific functions. And then used the MS. threat modeling tool to construct an architecture diagram and identified the trust boundaries between the different parties related to SQLite. We also constructed a security profile of SQLite, which provides us with an efficient way to identify the vulnerabilities. Based on the analysis, we identified and rated the threats via STRIDE, Attack Trees, and Attack Patterns, and documented all the steps to form a SQLite threat modeling report. }
 
 
 
-\subsection{Unaccomplished}
+\subsection{Unaccomplished \\ What we did not accomplish is that we did not go very deep into the SQLite source code, and we did not go through all the SQLite functions and figure out what they did thoroughly. Since the source code of the SQLite has over 200k LOC, we did not analyze the SQLite source code comprehensively. }
 
 
 
