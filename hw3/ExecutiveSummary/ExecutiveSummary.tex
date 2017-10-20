@@ -76,7 +76,12 @@ Finally, we do reverse engineering on binary files. We use \textit{http://binvis
 
 
 \section{Conclusion}
-In this homework, we analyze the binary file and source code of an open source software--WebBench, which is tool can analyze the benchmark of a web server. Firstly, we analyze the binary file, we analyze its section headers, symbols. Secondly, we analyze the source code through scitools Understand. Thirdly, we conduct the reverse engineering for the partial Webbench binary file. In conclusion, we get the basic knowledge to analyze the binary code by some Linux commands and we also know how to use the scitools Understand as well as get a broadened view of reverse engineering.
+In this homework, we learn the format string vulnerabilities and how to exploit these vulnerabilities on an open source command line application -- Webbench, which is a website performance testing tool. This process is tough for us at the very beginning. We have to learn the basic knowledge of how C program runs in the memory like how the stack works. We also read slides and books about format string vulnerabilities and how to exploit the vulnerabilities. With the help of the materials and homework instructions, we start to modify the source code of Webbench to exploit format string vulnerabilities.
+
+In conclusion, we get to know the usage of gdb. And we use it to exploit the format string vulnerabilities on WebBench. We implement an information leak exploit, buffer overflow exploit and an arbitrary write exploit.
+
+This work is difficult but we have fun through the process.
+
 
 \begin{thebibliography}{10}
 \bibitem{webbench_intro}
