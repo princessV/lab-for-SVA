@@ -23,11 +23,7 @@ Format String, Vulnerability, WebBench, Stress Testing
 \IEEEPARstart{W}ebBench is an open source application performance testing tool. It is mostly used for load testing where any particular application is stressed to potential traffic and then the performance of the application is evaluated under such stress. It is a very useful tool for eCommerce websites where sudden increase in traffic can be observed anytime. Multiple clients can request the provided application's URL at any given time as WebBench uses for() to simulate. 30k concurrent connections can be handled by WebBench easily at any given time, which makes it a unique tool. \cite{webbench_intro}
 
 \section{Reasons on WebBench}
-<<<<<<< HEAD
-Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. . To understand the cause and the factors affecting this is altogether a different story, but at the same time it is also important to understand that how these issues are getting tackled in the real world and which all factors are supporting it. One of the best practices to avoid such server failures is doing a thorough testing of the environments before making it live. WebBench is one of such tools which can help the firms to assess the behavior of servers under cases of severe loads. Our main aim for performing this activity is to understand what algorithm and architecture the application is encapsulating, which is making it so successful against most of the odds, which can occur.
-=======
-Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Every few days we come across a news saying some application has been found to be attacked by malicios codes. To get an overview of the scenarios leading to such attacks, it was important to understand how the attacks are being done and what are the ways to prevent it. WebBench is a performance testing software, so it couldn't have been better than assessing the performance of a performance testing application. Apart from this, WebBench is a lightweight tool which can be explored properly with. The lesser number of lines of codes in WebBench made us understand the application very well quickly and we were able to place the format specifier strings in a correct way.\\
->>>>>>> cfe2896384b995b49ab8dc5aa6f0d3b6e1003352
+Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Every few days we come across a news saying some application has been found to be attacked by malicios codes. To get an overview of the scenarios leading to such attacks, it was important to understand how the attacks are being done and what are the ways to prevent it. WebBench is a performance testing software, so it couldn't have been better than assessing the performance of a performance testing application. Apart from this, WebBench is a lightweight tool which can be explored properly with. The lesser number of lines of codes in WebBench made us understand the application very well quickly and we were able to place the format specifier strings in a correct way.
 
 What's more, WebBench is written in C and it accepts command line arguments. Therefore, putting together all these factors, we found it a perfect application to be a research target.
 
@@ -37,25 +33,16 @@ Below are the goals, which we had in our mind while performing this activity:
 \item To understand the architecture and main functions of WebBench and also to understand how Webbench works.
 \item To understand what makes the format specifers so important in the study of vulnerabilities.
 \item To understand the basic knowledge of how stack works in memory.
-<<<<<<< HEAD
-\item To understand the basic knowledge of gdb. To understand how to use gdb in terminal and in \textit{Eclipse}.
-\item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities.
-=======
 \item To understand the basic knowledge of gdb and gcc. To understand how to use them in terminal and in Eclipse.
 \item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities by creating an effective exploit code.
->>>>>>> cfe2896384b995b49ab8dc5aa6f0d3b6e1003352
 \item To get familiar with the overall process of basic bufferover flow attack, arbitrary write/read.
 \end{itemize}
 
 \section{Project Execution Highlights}
 Firstly, we download the source codes of WebBench from \textit{https://github.com}. We import the project to \textit{Eclipse}. We change the the project's makefile where we  add complie arguments \textit{-m32}, \textit{-Wno-format-security}, \textit{-fno-stack-protector} to make the project more easily to be attacked. Then we compile the project to an \textit{ELF} file.
 
-Secondly, we follow the instructions from the assignment, analyzing the binary files via Linux command line, like printing the library dependencies, listing symbols, etc. During this process, we get more detailed information about the binary files and the program. We generate a top-level system architectural diagram through the process.
+Secondly, we implment an information leak exploit and arbitrary read. This part is detailed described on our Gitlab project's wiki.
 
-Thirdly, we use \textit{SciTools Understand}\cite{understand} to analyze the program. We use \textit{buildspy} to build the binary and
-simultaneously create an understand database. We import the database file in \textit{Understand} and we analyze the file. The charts generated by \textit{Understand} helps us understand the architecture in finer granularity. The control flow is really helpful.
-
-Finally, we do reverse engineering on binary files. We use \textit{http://binvis.io}\cite{binvis} to analyze the content according to address. We also write a Python script to read the content in specific address, and print the content out.
 
 
 
@@ -64,7 +51,7 @@ Finally, we do reverse engineering on binary files. We use \textit{http://binvis
 \begin{itemize}
 \item Understood the architecture of WebBench. Got familiar with its functions.
 \item Used gcc compiler and gcc linker to compile WebBench to the 32-bit x86 binary.
-\item Used gdb within Eclipse to debug the program.
+\item Used gdb to debug the program.
 \item Understood the format string vulnerabilities and how to exploxit the vulnerabilities by:
 \begin{itemize}
 \item Implementing an information leak exploit.
@@ -75,14 +62,12 @@ Finally, we do reverse engineering on binary files. We use \textit{http://binvis
 
 \subsection{Unaccomplished}
 \begin{itemize}
-\item Did not understand all the section headers of the Webbench binary files.
-\item Did not learn all the symbols of the Webbench binary files
-\item Did not reverse the whole binary files of Webbench
+\item Most of the usage of gdb was within the terminal. We did not use \textit{Eclipse} much.
 \end{itemize}
 
 
 \section{Conclusion}
-In this homework, we learn the format string vulnerabilities and how to exploit these vulnerabilities on an open source command line application -- Webbench, which is a website performance testing tool. This process is tough for us at the very beginning. We have to learn the basic knowledge of how C program runs in the memory like how the stack works. We also read slides and books about format string vulnerabilities and how to exploit the vulnerabilities. With the help of the materials and homework instructions, we start to modify the source code of Webbench to exploit format string vulnerabilities.
+In this homework, we learn the format string vulnerabilities and how to exploit these vulnerabilities on an open source command line application -- Webbench, which is a website performance testing tool. This process is tough for us at the very beginning. We have to learn the basic knowledge of how C program runs in the memory like how the stack works. We also read slides and books about format string vulnerabilities and how to exploit the vulnerabilities. The \textit{x86 Assembly Guide} \cite{x86_assemby_guide} and the \textit{Phrack} \cite{phrack} is very helpful. With the help of the materials and homework instructions, we start to modify the source code of Webbench to exploit format string vulnerabilities.
 
 In conclusion, we get to know the usage of gdb. And we use it to exploit the format string vulnerabilities on WebBench. We implement an information leak exploit, buffer overflow exploit and an arbitrary write exploit.
 
@@ -93,15 +78,11 @@ This work is difficult but we have fun through the process.
 \bibitem{webbench_intro}
 \"EZLippi/WebBench\", GitHub. [Online]. Available: https://github.com/EZLippi/WebBench.
 
-\bibitem{binvis}
-\"binvis.io\", Binvis.io. [Online]. Available: http://binvis.io.
+\bibitem{x86_assemby_guide}
+\"Guide to x86 Assembly\", Flint.cs.yale.edu. [Online]. Available: http://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html.
 
-\bibitem{understand}
-\"SciTools.com\", Scitools.com. [Online]. Available: https://scitools.com/features/.
-
+\bibitem{phrack}
+\".:: Phrack Magazine ::.\", Phrack.org. [Online]. Available: http://phrack.org/issues/49/1.html.
 \end{thebibliography}
-
-% \bibliographystyle{IEEEtran}
-% \bibliography{test}
 
 \end{document}
