@@ -17,7 +17,7 @@ Format String Vulnerability is one of the most common vulnerabilities found in a
 \end{abstract}
 
 \begin{IEEEkeywords}
-Reverse Engineering, WebBench, Stress Testing
+Format String, Vulnerability, WebBench, Stress Testing
 \end{IEEEkeywords}
 
 
@@ -25,17 +25,18 @@ Reverse Engineering, WebBench, Stress Testing
 \IEEEPARstart{W}ebBench is an open source application performance testing tool. It is mostly used for load testing where any particular application is stressed to potential traffic and then the performance of the application is evaluated under such stress. It is a very useful tool for eCommerce websites where sudden increase in traffic can be observed anytime. Multiple clients can request the provided application's URL at any given time as WebBench uses for() to simulate. 30k concurrent connections can be handled by WebBench easily at any given time, which makes it a unique tool. \cite{webbench_intro}
 
 \section{Reasons on WebBench}
-Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. . To understand the cause and the factors affecting this is altogether a different story, but at the same time it is also important to understand that how these issues are getting tackled in the real world and which all factors are supporting it. One of the best practices to avoid such server failures is doing a thorough testing of the environments before making it live. WebBench is one of such tools which can help the firms to assess the behavior of servers under cases of severe loads. Our main aim for performing this activity is to understand what algorithm and architecture the application is encapsulating, which is making it so successful against most of the odds, which can occur. \\
+Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Every few days we come across a news saying some application has been found to be attacked by malicios codes. To get an overview of the scenarios leading to such attacks, it was important to understand how the attacks are being done and what are the ways to prevent it. WebBench is a performance testing software, so it couldn't have been better than assessing the performance of a performance testing application. Apart from this, WebBench is a lightweight tool which can be explored properly with. The lesser number of lines of codes in WebBench made us understand the application very well quickly and we were able to place the format specifier strings in a correct way.\\
 
-What's more, WebBench is a extremely lightweight tool, written totally by C. It is also a command line application accepting command line inputs from the terminal. Therefore, it is a great research target for us to do format string attack.
+What's more, WebBench is written in C and it accepts command line arguments. Therefore, putting together all these factors, we found it a perfect application to be a research target.
 
 \section{Project Goals}
 Below are the goals, which we had in our mind while performing this activity: \\
 \begin{itemize}
-\item To understand the architecture and main functions of WebBench. To understand how the Webbench works.
+\item To understand the architecture and main functions of WebBench and also to understand how Webbench works.
+\item To understand what makes the format specifers so important in the study of vulnerabilities.
 \item To understand the basic knowledge of how stack works in memory.
-\item To understand the basic knowledge of gdb. To understand how to use gdb in terminal and in Eclipse.
-\item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities.
+\item To understand the basic knowledge of gdb and gcc. To understand how to use them in terminal and in Eclipse.
+\item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities by creating an effective exploit code.
 \item To get familiar with the overall process of basic bufferover flow attack, arbitrary write/read.
 \end{itemize}
 
