@@ -22,31 +22,26 @@ Reverse Engineering, WebBench, Stress Testing
 
 
 \section{Introduction On WebBench}
-\IEEEPARstart{W}ebBench is an open source application performance testing tool. It is mostly used for load testing where any particular application is stressed to potential traffic and then the performance of the application is evaluated under such stress. Its a very useful tool for eCommerce websites where sudden increase in traffic can be observed anytime. Multiple clients can requests the provided application's URL at any given time as WebBench uses for() to simulate. 30k concurrent connections can be handled by WebBench easily at any given time, which makes it a unique tool. \cite{webbench_intro}
+\IEEEPARstart{W}ebBench is an open source application performance testing tool. It is mostly used for load testing where any particular application is stressed to potential traffic and then the performance of the application is evaluated under such stress. It is a very useful tool for eCommerce websites where sudden increase in traffic can be observed anytime. Multiple clients can request the provided application's URL at any given time as WebBench uses for() to simulate. 30k concurrent connections can be handled by WebBench easily at any given time, which makes it a unique tool. \cite{webbench_intro}
 
 \section{Reasons on WebBench}
 Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive research on the available applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Coming across news of server failure of e-Commerce giants like Amazon or Wal-Mart is definitely not a shocker these days. To understand the cause and the factors affecting this is altogether a different story, but at the same time it is also important to understand that how these issues are getting tackled in the real world and which all factors are supporting it. One of the best practices to avoid such server failures is doing a thorough testing of the environments before making it live. WebBench is one of such tools which can help the firms to assess the behavior of servers under cases of severe loads. Our main aim for performing this activity is to understand what algorithm and architecture the application is encapsulating, which is making it so successful against most of the odds, which can occur. \\
 
-What's more, WebBench is a extremely lightweight tool, written totally by C. Therefore, it is a great research target for us to do reverse engineering.
+What's more, WebBench is a extremely lightweight tool, written totally by C. It is also a command line application accepting command line inputs from the terminal. Therefore, it is a great research target for us to do format string attack.
 
 \section{Project Goals}
 Below are the goals, which we had in our mind while performing this activity: \\
 \begin{itemize}
-\item To understand the architecture of product.
-\item To get familiar with the techniques already available, which can help us, do reverse engineering.
-\item To get familiar with the overall process of reverse engineering.
-\item To understand the meaning of reverse engineering in pratical work.
-\item To get an idea on how to be more accurate while performing reverse engineering.
+\item To understand the architecture and main functions of WebBench. To understand how the Webbench works.
+\item To understand the basic knowledge of how stack works in memory.
+\item To understand the basic knowledge of gdb. To understand how to use gdb in terminal and in Eclipse.
+\item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities.
+\item To get familiar with the overall process of basic bufferover flow attack, arbitrary write/read.
 \end{itemize}
 
 \section{Project Execution Highlights}
 Firstly, we compile the source codes we get from \textit{github.com} to an executable file. We run the executable file and do some feature tests. The main function of WebBench is making requests to a specific URL. There are some parameters the users can set, like time, proxy, etc. \\
 Here is the overview architecture diagram.
-\begin{figure}[!htbp]
-\centering
-
-\caption{Overview}
-\end{figure}
 
 Secondly, we follow the instructions from the assignment, analyzing the binary files via Linux command line, like printing the library dependencies, listing symbols, etc. During this process, we get more detailed information about the binary files and the program. We generate a top-level system architectural diagram through the process. \\
 
@@ -60,18 +55,15 @@ Finally, we do reverse engineering on binary files. We use \textit{http://binvis
 \section{Accomplished \& Unaccomplished}
 \subsection{Accomplished}
 \begin{itemize}
-\item  Compilation of binary.
-\item  Dumping the headers.
-\item  Printing the shared library dependencies.
-\item  Printing the symbols.
-\item  Dump vm tables at the time of execution.
-\item  Able to run the strace and obtain the PID.
-\item  Able to import the source code to SciTools Understand.
-\item  Able to build the binary using buildspy.
-\item  Able to print the metrics summary.
-\item Able to capture Cluster Call Butterfly graph view.
-\item Able to Identify vulnerabilities.
-\item Able to plot the entropy of binary file.
+\item Understood the architecture of WebBench. Got familiar with its functions.
+\item Used gcc compiler and gcc linker to compile WebBench to the 32-bit x86 binary.
+\item Used gdb within Eclipse to debug the program.
+\item Understood the format string vulnerabilities and how to exploxit the vulnerabilities by:
+\begin{itemize}
+\item Implementing an information leak exploit.
+\item Implementing an buffer overflow exploit.
+\item Implementing an arbitrary write exploit.
+\end{itemize}
 \end{itemize}
 
 \subsection{Unaccomplished}
@@ -80,6 +72,8 @@ Finally, we do reverse engineering on binary files. We use \textit{http://binvis
 \item Did not learn all the symbols of the Webbench binary files
 \item Did not reverse the whole binary files of Webbench
 \end{itemize}
+
+
 \section{Conclusion}
 In this homework, we analyze the binary file and source code of an open source software--WebBench, which is tool can analyze the benchmark of a web server. Firstly, we analyze the binary file, we analyze its section headers, symbols. Secondly, we analyze the source code through scitools Understand. Thirdly, we conduct the reverse engineering for the partial Webbench binary file. In conclusion, we get the basic knowledge to analyze the binary code by some Linux commands and we also know how to use the scitools Understand as well as get a broadened view of reverse engineering.
 
