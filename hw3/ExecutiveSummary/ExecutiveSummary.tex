@@ -39,9 +39,13 @@ Below are the goals, which we had in our mind while performing this activity:
 \end{itemize}
 
 \section{Project Execution Highlights}
-Firstly, we download the source codes of WebBench from \textit{https://github.com}. We import the project to \textit{Eclipse}. We change the the project's makefile where we  add complie arguments \textit{-m32}, \textit{-Wno-format-security}, \textit{-fno-stack-protector} to make the project more easily to be attacked. Then we compile the project to an \textit{ELF} file.
+Firstly, we download the source codes of WebBench from \textit{https://github.com}. We import the project to \textit{Eclipse}. We change the the project's makefile where we  add compile arguments \textit{-m32}, \textit{-Wno-format-security}, \textit{-fno-stack-protector} to make the project more easily to be attacked. Then we compile the project to an \textit{ELF} file.
 
-Secondly, we implment an information leak exploit and arbitrary read. This part is detailed described on our Gitlab project's wiki. ... We watched a video in \textit{youtube} to get to know the process of format string. \cite{v_format_string} ...
+Secondly, we implement an information leak exploit and an arbitrary read exploit. At first, we watched some videos in \textit{youtube} to get to know the process of format string, the vulnerability of the format string, and how to exploit it. Also, we learned to use python script as an effective tool for us to conduct the attack format string. This would be written in detail in the Wiki of our Gitlab project.\cite{v_format_string}
+
+And then, we conduct an arbitrary write exploit. During this process, we find an effective way to write and modify a return address by using format specifier \%nh to write 2 bytes at one time. This process is a little tedious because we need to try many times in order to write the correct address. But in the end, the format string works, we feel very rewarding and get a deep understanding of the vulnerabilities of format string. This also written in detail in the Wiki.
+
+Finally, we conduct a bufferoverflow exploit. In this process, we also use the python as an efficient tool to construct the attack string. By using python, we can write our shellcode address to the stack very easily. But the disadvantage is that we not only modify the return address, but also the other parts of the stack. If we turn on the stack canary, this method would not work. Again, this we describe more details in the Wiki.  
 
 
 
