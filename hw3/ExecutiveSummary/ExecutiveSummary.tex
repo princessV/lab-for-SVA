@@ -41,7 +41,7 @@ Below are the goals, which we had in our mind while performing this activity:
 \section{Project Execution Highlights}
 Firstly, we download the source codes of WebBench from \textit{https://github.com}. We import the project to \textit{Eclipse}. We change the the project's makefile where we  add complie arguments \textit{-m32}, \textit{-Wno-format-security}, \textit{-fno-stack-protector} to make the project more easily to be attacked. Then we compile the project to an \textit{ELF} file.
 
-Secondly, we implment an information leak exploit and arbitrary read. This part is detailed described on our Gitlab project's wiki.
+Secondly, we implment an information leak exploit and arbitrary read. This part is detailed described on our Gitlab project's wiki. ... We watched a video in \textit{youtube} to get to know the process of format string. \cite{v_format_string} ...
 
 
 
@@ -63,6 +63,7 @@ Secondly, we implment an information leak exploit and arbitrary read. This part 
 \subsection{Unaccomplished}
 \begin{itemize}
 \item Most of the usage of gdb was within the terminal. We did not use \textit{Eclipse} much.
+\item When doing buffer overflow exploit, we used \textit{strcpy}, instead of a tainted format specifier to a format string function.
 \end{itemize}
 
 
@@ -74,6 +75,9 @@ In conclusion, we get to know the usage of gdb. And we use it to exploit the for
 This work is difficult but we have fun through the process.
 
 
+\section{Appendix}
+We put all supplementary information to the wiki for our Gitlab project.
+
 \begin{thebibliography}{10}
 \bibitem{webbench_intro}
 \"EZLippi/WebBench\", GitHub. [Online]. Available: https://github.com/EZLippi/WebBench.
@@ -83,6 +87,10 @@ This work is difficult but we have fun through the process.
 
 \bibitem{phrack}
 \".:: Phrack Magazine ::.\", Phrack.org. [Online]. Available: http://phrack.org/issues/49/1.html.
+
+\bibitem{v_format_string}
+\"A simple Format String exploit example - bin 0x11\", YouTube, 2016. [Online]. Available: https://www.youtube.com/watch?v=0WvrSfcdq1I.
 \end{thebibliography}
+
 
 \end{document}
