@@ -1,0 +1,34 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=1cm, bottom=2cm}
+
+\begin{document}
+\title{\textbf{Project Proposal}}
+\author{\textit{Qiyang Gu, Ujjawal Sharma, Zhiyuan Li}}
+\date{}
+\maketitle
+
+
+\subsection*{1. Lecture on software vulnerabilities evaluation method based on machine learning and natural language processing}
+
+In class, we discuss a lot of software vulnerabilities and how to exploit these vulnerabilities. These cases show us the importance for security analysts to make evaluations on software security to mitigate the risk of being attacked. But most of the analyses on software vulnerabilities focus on the source code of the software. However, with the increasing of the scale of the complexity of the software, these methods will be impractical to meet the requirements for software vulnerabilities evaluation. Also, what if it's difficult for us to get the source code of the software to be evaluated? What if the software is a closed source software? These general methods seem not to work. \\
+
+\noindent
+In fact, there is a large amount of raw information about software security in many online security databases, vulnerability databases and vulnerability forums, which is not utilized sufficiently so far. These information can be used for vulnerability analyses, which provides a new way to make software security evaluations.\\
+
+\noindent
+Our security evaluation method based on machine learning and natural language processing. We start from the name and the version of the software, get security information in the security databases (NVD) by network crawler, then we can use NLP technology on big data to predict software indicators like the amount, impact and category of the security vulnerabilities in the software, therefore making evaluations on software security. Our lecture will introduce these steps.
+
+
+\subsection*{2. Case study on exploiting Node.js deserialization vulnerability for remote code execution}
+
+Deserialization vulnerability is one kind of famous software vulnerabilities exists in programming languages like Java, PHP, and Python. When using these languages, if we want to transmit an object between a client and a server or store the object in the database, firstly we should convert the object to bytes that can be transmitted/stored. This process is called serialization. Deserialization is the process where we convert the bytes back to an object. The basic idea for exploiting deserialization vulnerabilities is that the attacker sets up a piece of malicious code and pass it to the deserialization function. Then the deserialization will result in the execution of the malicious code. \\
+
+\noindent
+Node.js is now a very popular server-side technology. We want to focus on a web server written by Node.js with deserialization vulnerability and how to exploit the vulnerability.
+
+
+\subsection*{3. Case study on CSRF}
+Cross-site request forgery (CSRF) is a classic type of exploitation. The basic authentication in a web application only ensures a request is sent from a user's browser, it cannot guarantee the request is sent willingly by the user. Based on our research, it seems that many small web application does not defend this kind of attack. Therefore, we want to make exploitation on this type of vulnerability to figure out how insecure it is.
+\end{document}
