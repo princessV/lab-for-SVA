@@ -15,7 +15,7 @@ Format String Vulnerability is one of the most common vulnerabilities found in a
 \end{abstract}
 
 \begin{IEEEkeywords}
-Format String, Vulnerability, WebBench, Stress Testing
+ bufferoverflow, Vulnerability, WebBench, Stress Testing
 \end{IEEEkeywords}
 
 
@@ -39,15 +39,21 @@ Below are the goals, which we had in our mind while performing this activity:
 
 \section{Project Execution Highlights}
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
-Firstly, we download the source codes of WebBench from \textit{https://github.com}. We import the project to \textit{Eclipse}. We change the the project's makefile where we  add compile arguments \textit{-m32}, \textit{-Wno-format-security}, \textit{-fno-stack-protector} to make the project more easily to be attacked. Then we compile the project to an \textit{ELF} file.
+Firstly, we review the knowledge in class that how to exploit a bufferoverflow vulnerability and take advantage of this vulnerability to conduct stack smashing. We review the structure of a stack and how it changes when it executes the function call procedure. Based on this, we learn to how to exploit stack smashing by code injection and arc injection and we aquire some basic understanding about how these two exploits work, and what's the difference between these two exploits. For the code injection, we know that we need to construct a vulnerable source code that using unchecked \textit{strcpy()} or \textit{memcpy()} so that we can take advantage of this uncheck argument passing procedure.
 
-Secondly, we implement an information leak exploit and an arbitrary read exploit. At first, we watched some videos in \textit{youtube} to get to know the process of format string, the vulnerability of the format string, and how to exploit it. Also, we learned to use python script as an effective tool for us to conduct the attack format string. This would be written in detail in the Wiki of our Gitlab project.\cite{v_format_string}
+Secondly, After we construct a vulnerable source code that containing unchecked \textit{strcpy()}, we write a exploit source code to conduct stack smashing. In this exploit suorce code, we construct the machine code of shellcode and our goal is to rewrite the return address to our shellcode's address. We need to insert this malicious code into the stack and make sure the stack is execuatble. So when we build the c source code, we set the compiler options as \textit{gcc -z execstack -fno-stack-protector} so that the stack can be execuatble and the stack canaries would be closed.
 
-And then, we conduct an arbitrary write exploit. During this process, we find an effective way to write and modify a return address by using format specifier \%nh to write 2 bytes at one time. This process is a little tedious because we need to try many times in order to write the correct address. But in the end, the format string works, we feel very rewarding and get a deep understanding of the vulnerabilities of format string. This also written in detail in the Wiki.
+Finally, we use the gdb to debug the program and get the information of ebp, esp, return address, and shellcode's address. Based on these information, we can do some calculation to determine what should we pass to the tainted buffer in order to overflow the vulnerable variable. This process is shown in detail in the Wiki. 
 
-Finally, we conduct a bufferoverflow exploit. In this process, we also use the python as an efficient tool to construct the attack string. By using python, we can write our shellcode address to the stack very easily. But the disadvantage is that we not only modify the return address, but also the other parts of the stack. If we turn on the stack canary, this method would not work. Again, this we describe more details in the Wiki.  
+When the project successfully return to our shellcode rather than the original main function, we know that our exploit works. And then, we turn on the ASLR and get segment fault erro when we run the same program. This is because the randomization of the address of heap, stack, code, and shared libraries can be achieved by ASLR. And when we trun ASLR off but enable stack canaries, this attack still cannot work since we change the value of stack canaries when we overflow the vulnerable variable in the stack, this will lead to the program triger the exception handle mechanism. To defeat the stack protected method, such as DEP, we need to use arc injection, which we will discribe in detail soon, to attack the program without requiring a execuatble stack.
+  
 
 \subsection{Implementing a stack smashing exploit that uses arc-injection}
+Firstly, we know that this exploit is also a type of bufferoverflow attack. However, we don't need the stack to be executable in this case and we don't even need a shellcode. Instead, Instead, we let the vulnerable program jump to the existing code, such as the \textit{system()} function in the libc library that has been loaded into memory, to implement our attack. So similar to the code injection, we construct a vulnerable source code and build it, and construct an exploit source code and build it. In this case, we don't need to set the compiler option \textit{gcc -z exestack} since we would not insert any code into the stack.
+
+Secondly, our goal is to let the vulnerable program jump to the \textit{system()} function and pass the \textit{/bin/sh} as argument. So we need to know the address of \textit{system()} and the address of environmental variable \textit{/bin/sh}. We can know the address of \textit{system()} by using \textit{p system} command in gdb since these functions are loaded into memory and their addresses are same for the all programs(we've already closed ASLR). And then we find the address of environmental variable \textit{/bin/sh} by \textit{getenv()}, or by using command \textit{x/500s \$esp} in gdb to find the address.
+
+Finally, we test the exploit program and it works well. And we let the vulnerable program jump to the \textit{system()} and open the /bin/sh successfully. This process is shown in detail in the Wiki. We also know that the effective way to prevent our program from arc injection attack is to open the ASLR, since it will make the attck very difficult by randomize the addresses of shared library. However, there are some more complicated method to achieve the attack, such as chaining return-to-libc calls via frame-faking method.
 
 \section{Findings}
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
