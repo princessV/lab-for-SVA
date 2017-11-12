@@ -41,11 +41,11 @@ Below are the goals, which we had in our mind while performing this activity:
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
 Firstly, we review the knowledge in class that how to exploit a bufferoverflow vulnerability and take advantage of this vulnerability to conduct stack smashing. We review the structure of a stack and how it changes when it executes the function call procedure. Based on this, we learn to how to exploit stack smashing by code injection and arc injection and we aquire some basic understanding about how these two exploits work, and what's the difference between these two exploits. For the code injection, we know that we need to construct a vulnerable source code that using unchecked \textit{strcpy()} or \textit{memcpy()} so that we can take advantage of this uncheck argument passing procedure.
 
-Secondly, After we construct a vulnerable source code that containing unchecked \textit{strcpy()}, we write a exploit source code to conduct stack smashing. In this exploit suorce code, we construct the machine code of shellcode and our goal is to rewrite the return address to our shellcode's address. We need to insert this malicious code into the stack and make sure the stack is execuatble. So when we build the c source code, we set the compiler options as \textit{gcc -z execstack -fno-stack-protector} so that the stack can be execuatble and the stack canaries would be closed.
+Secondly, After we construct a vulnerable source code that containing unchecked \textit{strcpy()}, we write a exploit source code to conduct stack smashing. In this exploit suorce code, we construct the machine code of shellcode and our goal is to rewrite the return address to our shellcode's address. We need to insert this malicious code into the stack and make sure the stack is executable. So when we build the c source code, we set the compiler options as \textit{gcc -z execstack -fno-stack-protector} so that the stack can be executable and the stack canaries would be closed.
 
 Finally, we use the gdb to debug the program and get the information of ebp, esp, return address, and shellcode's address. Based on these information, we can do some calculation to determine what should we pass to the tainted buffer in order to overflow the vulnerable variable. This process is shown in detail in the Wiki. 
 
-When the project successfully return to our shellcode rather than the original main function, we know that our exploit works. And then, we turn on the ASLR and get segment fault erro when we run the same program. This is because the randomization of the address of heap, stack, code, and shared libraries can be achieved by ASLR. And when we trun ASLR off but enable stack canaries, this attack still cannot work since we change the value of stack canaries when we overflow the vulnerable variable in the stack, this will lead to the program triger the exception handle mechanism. To defeat the stack protected method, such as DEP, we need to use arc injection, which we will discribe in detail soon, to attack the program without requiring a execuatble stack.
+When the project successfully return to our shellcode rather than the original main function, we know that our exploit works. And then, we turn on the ASLR and get segment fault erro when we run the same program. This is because the randomization of the address of heap, stack, code, and shared libraries can be achieved by ASLR. And when we trun ASLR off but enable stack canaries, this attack still cannot work since we change the value of stack canaries when we overflow the vulnerable variable in the stack, this will lead to the program triger the exception handle mechanism. To defeat the stack protected method, such as DEP, we need to use arc injection, which we will discribe in detail soon, to attack the program without requiring a executable stack.
   
 
 \subsection{Implementing a stack smashing exploit that uses arc-injection}
@@ -59,12 +59,12 @@ Finally, we test the exploit program and it works well. And we let the vulnerabl
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
 The basic idea of our code injection exploitation is that when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means our injection will fail.
 
-In our case, we turned on ASLR after we successfully implement the code injection. When we want to replay what we do previously, we find that we cannot figure out the address where we want to insert our shellcode.
+In our case, we turn on ASLR after we successfully implement the code injection. When we want to replay what we do previously, we find that we cannot figure out the address where we want to insert our shellcode because the address will change after we re-execute our program.
 
 There are several ways to defeat ASLR, one of which is brute force. \cite{defeating_tech} We need to try lots of addresses until it works.
 
 \subsection{Implementing a stack smashing exploit that uses arc-injection}
-
+When the system enables DEP (Data Execution Prevent), the stack is \"no-executable"
 
 
 
