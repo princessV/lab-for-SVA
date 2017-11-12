@@ -57,26 +57,16 @@ Finally, we test the exploit program and it works well. And we let the vulnerabl
 
 \section{Findings}
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
-The basic idea of our code injection exploitation is that when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means
-\section{Accomplished \& Unaccomplished}
-\subsection{Accomplished}
-\begin{itemize}
-\item Understood the architecture of WebBench. Got familiar with its functions.
-\item Used gcc compiler and gcc linker to compile WebBench to the 32-bit x86 binary.
-\item Used gdb to debug the program.
-\item Understood the format string vulnerabilities and how to exploxit the vulnerabilities by:
-\begin{itemize}
-\item Implementing an information leak exploit.
-\item Implementing an buffer overflow exploit.
-\item Implementing an arbitrary write exploit.
-\end{itemize}
-\end{itemize}
+The basic idea of our code injection exploitation is that when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means our injection will fail.
 
-\subsection{Unaccomplished}
-\begin{itemize}
-\item Most of the usage of gdb was within the terminal. We did not use \textit{Eclipse} much.
-\item When doing buffer overflow exploit, we used \textit{strcpy}, instead of a tainted format specifier to a format string function.
-\end{itemize}
+In our case, we turned on ASLR after we successfully implement the code injection. When we want to replay what we do previously, we find that we cannot figure out the address where we want to insert our shellcode.
+
+There are several ways to defeat ASLR, one of which is brute force. \cite{defeating_tech} We need to try lots of addresses until it works.
+
+\subsection{Implementing a stack smashing exploit that uses arc-injection}
+
+
+
 
 
 \section{Conclusion}
@@ -102,6 +92,9 @@ We put all supplementary information to the Wiki for our Gitlab project.
 
 \bibitem{v_format_string}
 \"A simple Format String exploit example - bin 0x11\", YouTube, 2016. [Online]. Available: https://www.youtube.com/watch?v=0WvrSfcdq1I.
+
+\bibitem{defeating_tech}
+N. Stack Overflows - Defeating Canaries, \"Stack Overflows - Defeating Canaries, ASLR, DEP, NX\", Security.stackexchange.com. [Online]. Available: https://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx.
 \end{thebibliography}
 
 
