@@ -51,8 +51,7 @@ Finally, we conduct a bufferoverflow exploit. In this process, we also use the p
 
 \section{Findings}
 \subsection{Implementing a stack smashing exploit that uses shellcode injection}
-
-
+The basic idea of our code injection exploitation is that when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means
 \section{Accomplished \& Unaccomplished}
 \subsection{Accomplished}
 \begin{itemize}
