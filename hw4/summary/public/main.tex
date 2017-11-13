@@ -15,12 +15,12 @@ Stack Smash Exploit is caused when a programme is trying to access (read or writ
 \end{abstract}
 
 \begin{IEEEkeywords}
- bufferoverflow, Vulnerability, WebBench, Stress Testing
+ stacksmash, bufferoverflow, Vulnerability, Exploit
 \end{IEEEkeywords}
 
 
 \section{Introduction}
-\IEEEPARstart{W}ebBench is an open source application performance testing tool. It is mostly used for load testing where any particular application is stressed to potential traffic and then the performance of the application is evaluated under such stress. It is a very useful tool for eCommerce websites where sudden increase in traffic can be observed anytime. Multiple clients can request the provided application's URL at any given time as WebBench uses for() to simulate. 30k concurrent connections can be handled by WebBench easily at any given time, which makes it a unique tool. \cite{webbench_intro}
+\IEEEPARstart{F}or demonstrating the exploit, we have created our own C programmes.  \cite{webbench_intro}
 
 \section{Reasons and Goals}
 Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Every few days we come across a news saying some application has been found to be attacked by malicios codes. To get an overview of the scenarios leading to such attacks, it was important to understand how the attacks are being done and what are the ways to prevent it. WebBench is a performance testing software, so it couldn't have been better than assessing the performance of a performance testing application. Apart from this, WebBench is a lightweight tool which can be explored properly with. The lesser number of lines of codes in WebBench made us understand the application very well quickly and we were able to place the format specifier strings in a correct way.
