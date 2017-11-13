@@ -11,7 +11,7 @@
 
 
 \begin{abstract}
-Format String Vulnerability is one of the most common vulnerabilities found in applications developed . It is one of those attacks which is considered to be as dangerous for any application. Attacker can get full control of the application or the data being handled by the application. This kind of vulnerability is mostly performed on the applications based on C programming languages. Many a times attackers use this vulnerability to crash the application and also to execute malicious code of their choice. The attacker gets the direct access to read and write into the memory addresses so he can use even the memory to either steal important information or inject false data.
+Stack Smash Exploit is caused when a programme is trying to access (read or write) a region of an array that is not bounded by it. Suppose an array has length 'n' and the programme is trying to access its n+1\textsuperscript{th} location, in this case an overflow of stack will occur. This happens in the C and C++ programming languages. The reason behind such an occurance is that the runtime environment of these programming language do not provide a check on the buffer overflow. However, in other programming languages such as Java, Pascal, C-Sharp etc. the runtime environment do take care of buffer overflow. 
 \end{abstract}
 
 \begin{IEEEkeywords}
