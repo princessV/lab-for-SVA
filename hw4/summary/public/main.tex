@@ -20,22 +20,20 @@ Stack Smash Exploit is caused when a programme is trying to access (read or writ
 
 
 \section{Introduction}
-\IEEEPARstart{F}or demonstrating the exploit, we have created our own set of C programmes. The whole package consists of three files. We have created C Code files namely vulcode.c, exploit.c and retlib.c. The C code file vulcode.c is the vulnerable code which is the original source code of the programme which the attacker will attack. The C code file exploit.c is the programme which will create a tainted file which will be helpful in creating the buffer overflow. The C code file retlib.c will act as the arc injection file. The attacker will try to pass the control of the execution from vulcode.c to retlib.c.
-   \cite{webbench_intro}
+\IEEEPARstart{F}or demonstrating the exploit, we have created our own set of C programmes. The whole package consists of three files. We have created C Code files namely vulcode.c, exploit.c and retlib.c. The C code file vulcode.c is the vulnerable code which is the original source code of the programme which the attacker will attack. The C code file exploit.c is the programme which will create a tainted file which will be helpful in creating the buffer overflow. The C code file retlib.c will act as the arc injection file. The attacker will try to pass the control of the execution from vulcode.c to retlib.c. 
+
 
 \section{Reasons and Goals}
-Performing the Format String Vulnerability requires a commonly known tool and a mature knowledge of C programming language. Selection of a software for performing this activity was very important for us and we did an intensive search on the applcations available on the open-source forums. Our choice of selecting this software was majorly influenced by the current ongoing scenarios. Every few days we come across a news saying some application has been found to be attacked by malicios codes. To get an overview of the scenarios leading to such attacks, it was important to understand how the attacks are being done and what are the ways to prevent it. WebBench is a performance testing software, so it couldn't have been better than assessing the performance of a performance testing application. Apart from this, WebBench is a lightweight tool which can be explored properly with. The lesser number of lines of codes in WebBench made us understand the application very well quickly and we were able to place the format specifier strings in a correct way.
-
-What's more, WebBench is written in C and it accepts command line arguments. Therefore, putting together all these factors, we found it a perfect application to be a research target.
+Performing the Stack Smash Vulnerability activity requires a mature knowledge of C programming language. By working on different exploit activities from some time we thought of creating our own programmes as we were confident on the end-to-end functionality of the working of exploit. Just by creating the above mentioned 3 files, one can demonstrate the stack smash vulnerability. Creating our own programme also helped us to understand what each step in a long programme can lead to. Also, by developing our code, we avoided the redundant codes of any huge programme.
 
 Below are the goals, which we had in our mind while performing this activity:
 \begin{itemize}
-\item To understand the architecture and main functions of WebBench and also to understand how Webbench works.
-\item To understand what makes the format specifers so important in the study of vulnerabilities.
-\item To understand the basic knowledge of how stack works in memory.
-\item To understand the basic knowledge of gdb and gcc. To understand how to use them in terminal and in Eclipse.
-\item To get familiar with the techniques already available, which can help us, exploit the format string vulnerabilities by creating an effective exploit code.
-\item To get familiar with the overall process of basic bufferover flow attack, arbitrary write/read.
+\item To understand how the exploit works.
+\item To understand how the control of the programme flows under such an activity.
+\item To understand the way an attacker can use the vulnerabilities.
+\item To get a good conceptual grip on what each step of exploit and vulnerable code means.
+\item To understand how the control of any programme can be diverted.
+\item To find out why some functions are vulnerable in C and the reason behind it.
 \end{itemize}
 
 \section{Project Execution Highlights}
@@ -82,8 +80,6 @@ This work is difficult but we have fun through the process.
 We put all supplementary information to the Wiki for our Gitlab project.
 
 \begin{thebibliography}{10}
-\bibitem{webbench_intro}
-\"EZLippi/WebBench\", GitHub. [Online]. Available: https://github.com/EZLippi/WebBench.
 
 \bibitem{x86_assemby_guide}
 \"Guide to x86 Assembly\", Flint.cs.yale.edu. [Online]. Available: http://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html.
