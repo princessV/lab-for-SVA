@@ -62,8 +62,11 @@ In our case, we turn on ASLR after we successfully implement the code injection.
 There are several ways to defeat ASLR, one of which is brute force. \cite{defeating_tech} We need to try lots of addresses until it works.
 
 \subsection{Implementing a stack smashing exploit that uses arc-injection}
-When the system enables DEP (Data Execution Prevent), the stack is actually ``non-executable''.
+When the system enables DEP (Data Execution Prevent), the stack is actually ``non-executable''. \cite{dep} It means some specific space in memory will be marked as ``non-executable'' space. If we use basic code injection, the program will terminate when the system finds the shell code runs in the ``non-executable'' space. Therefore, what we do in the previous experiment will fail.
 
+In order to defeat DEP, we use arc injection. The basic idea is that we add our malicious code to environment variables and system function instead of running it in the stack. In our attack, we transfer control flow of the program and change the stacker pointer to the system functions so that we can run our shell code.
+
+To defeat arc injection, we should enforce CFI (Control Flow Integrity) to entrue the control flow of the program is not changed by the attacker.
 
 \section{Conclusion}
 In this homework, we understood the stack smash vulnerabilities and how an attacker can use it to divert the execution of any programme. Although to understand the whole process we took some time,but once we had understood the concept well, we were successfully able to execute it. We were able to understand the control flow of stack smashing vulnerability and how it is used by attackers to get the control of the programme. We were also able to understand why few of the functions are dangerous in C and C++ programming languages and why we should prefer not to use them.
@@ -72,18 +75,11 @@ In this homework, we understood the stack smash vulnerabilities and how an attac
 We put all supplementary information to the Wiki for our Gitlab project.
 
 \begin{thebibliography}{10}
-
-\bibitem{x86_assemby_guide}
-\"Guide to x86 Assembly\", Flint.cs.yale.edu. [Online]. Available: http://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html.
-
-\bibitem{phrack}
-\".:: Phrack Magazine ::.\", Phrack.org. [Online]. Available: http://phrack.org/issues/49/1.html.
-
-\bibitem{v_format_string}
-\"A simple Format String exploit example - bin 0x11\", YouTube, 2016. [Online]. Available: https://www.youtube.com/watch?v=0WvrSfcdq1I.
-
 \bibitem{defeating_tech}
 N. Stack Overflows - Defeating Canaries, ``Stack Overflows - Defeating Canaries, ASLR, DEP, NX'', Security.stackexchange.com. [Online]. Available: https://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx.
+
+\bibitem{dep}
+``Executable space protection'', En.wikipedia.org. [Online]. Available: https://en.wikipedia.org/wiki/Executable\_space\_protection.
 \end{thebibliography}
 
 
