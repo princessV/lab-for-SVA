@@ -3,6 +3,9 @@
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 
+\usepackage{graphicx}
+\graphicspath{{public/}}
+
 \begin{document}
 
 \title{Vulnerability Prediction Modeling Based on Machine Learning and Natural Language Processing}
@@ -42,36 +45,30 @@ Below are the goals, which we had in our mind while introducing this VPM method:
 \end{itemize}
 
 \section{Project Execution Highlights}
-\subsection{Implementing a stack smashing exploit that uses shellcode injection}
-Firstly, we reviewed the knowledge provided to us in the class on how to exploit a bufferoverflow vulnerability and take advantage of this vulnerability to conduct stack smashing. We reviewed the structure of a stack and how it changes when it executes the function call procedure. Based on this, we were able to learn how to exploit stack smashing by code injection and arc injection and we aquired some basic understanding about how these two exploits work, and also, what's the difference between these two exploits. For the code injection, we constructed an exploit which will try to attack the vulnerable source code which has the unchecked \textit{strcpy()} or \textit{memcpy()} functions. The exploit will take the advantage of this unchecked function to pass argument of its choice.
+The main process of our VPM is shown below. \clearpage
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=4.5cm]{VPM_1}
+\caption{Main process}
+\end{figure}
+As shown in the figure, the core of our method is a machine learning model. The method includes an offline model training process and an online security assessment process, corresponding to the upper and lower half of the graph. In the model training process, we first obtain the software security information and software security merits from the training data source NVD. Then, we combine the predefined software feature words with the software name and version number, searched in the search engine, and we use crawlers to crawl the contents of the searched webpage to obtain the software security information on the Internet. We take the software security information on the network as the input of the model and the software security merits as the output of the model to train the model. In the security assessment process, we enter the software name and version number combined with the feature words in the search engine, and use the crawler to crawl the contents of the search results page to get the software security information. Finally, the software security information is used as the input of the model. The model outputs the security merits of the software and generates the security assessment report of the software.
 
-Secondly, After we constructed a vulnerable source code that was containing unchecked \textit{strcpy()}, we wrote an exploit source code to conduct stack smashing. In this exploit suorce code, we constructed the machine code of shellcode and our goal was to rewrite the return address to our shellcode's address. We need to insert this malicious code into the stack and make sure the stack is executable. So, when we build the C source code, we set the compiler options as \textit{gcc -z execstack -fno-stack-protector} so that, the stack can be executable and the stack canaries would be closed.
+We will discuss it detailedly in the following.
+\subsection{Pre-process the trainning data}
+Pre-processing the training data is the process of preprocessing the data in NVD and taking the software security information and expected output from the NVD. Software security information includes information about vulnerabilities in the NVD and information in related external links. We use the xml parser to analyze the dataset in the xml document provided by the NVD to obtain the vulnerability information in the NVD. Then we use the xml parser to get the address of the vulnerability-related external link from the xml document, selecting the URLs of some of these links for easy-to-understand, well-formed secure database sites, crawling for vulnerabilities on those sites. Expected output is the software's security merits, including the number, severity, and major types of software vulnerabilities. We use xml parser to analyze the dataset of xml document provided by NVD and take out the severity and the type of each vulnerability. After all the vulnerability information is stored in the database, we use sql statement to calculate the number, severity and the main type of vulnerability in each software.
 
-Finally, we used the gdb to debug the program and got the information of ebp, esp, return address, and shellcode's address. Based on these information, we were able to do some calculation to determine what should we pass to the tainted buffer in order to make the vulnerable variable perform an overflow. This process is shown in detail in the Wiki. 
 
-When the project successfully return to our shellcode rather than the original main function, we concluded that our exploit works. And then, we turned ON the ASLR and received the segment fault error while running the same program. This occured because the randomization of the address of heap, stack, code, and shared libraries can be achieved by ASLR. And when we turned ASLR OFF, and enabled stack canaries, the attack did not work since we changed the value of stack canaries when we overflow the vulnerable variable in the stack. This will lead to  triggering of the program exception handle mechanism. To defeat the stack protected method, such as DEP, we need to use arc injection, which we will describe in detail soon. That will explain how to attack the program without requiring an executable stack.
+\subsection{Corpus collection}
+Corpus collection is the process of using search engines to collect software security information on the Internet. Search keywords is the name and version of the software combined with the pre-defined feature words. The reason of the usage of the feature words it to filter irrelevant sites. Firstly, we define the high-frequency words appears in the vulnerability in the NVD as the initial candidate feature words, and then use different combinations of these candidate feature words as the candidate feature phrases to train and evaluate the models respectively, and select the candidate features with the highest accuracy Word combination as the final feature word.
 
-\subsection{Implementing a stack smashing exploit that uses arc-injection}
-Firstly, we knew that this exploit is also a type of bufferoverflow attack. However, we don't require the stack to be executable in this case, and also we don't even need a shellcode. Instead, we let the vulnerable program jump to the existing code, such as the \textit{system()} function in the libc library that has been loaded into memory, to implement our attack. So, similar to the code injection, we constructed a vulnerable source code and build it, and construct an exploit source code and build it. In this case, we don't require to set the compiler option \textit{gcc -z exestack} as we would not insert any code into the stack.
-
-Secondly, our goal is to let the vulnerable program jump to the \textit{system()} function and pass the \textit{/bin/sh} as argument. For this, we need to know the address of \textit{system()} and the address of environmental variable \textit{/bin/sh}. We can know the address of \textit{system()} by using \textit{p system} command in gdb since these functions are loaded into memory and their addresses are same for all the programs(As we've already turned off the ASLR). And, then, we will find the address of environmental variable \textit{/bin/sh} by \textit{getenv()}, or by using command \textit{x/500s \$esp} in gdb to find the address.
-
-Finally, we tested the exploit program and it worked well. And, we let the vulnerable program jump to the \textit{system()} and open the /bin/sh successfully. This process is shown in detail in the Wiki. We also know that the effective way to prevent our program to face an arc injection attack is by simply turning ON the ASLR, since it will make the attck very difficult by randomizing the addresses of shared library. However, there are some more complicated method to achieve the attack, such as chaining return-to-libc calls via frame-faking method.
+\subsection{Model preparation and training}
+Model preparation and training is the process of preparing the training data of the machine learning model and training the model. We use the software security descriptive information in the training data source to train the neural network, and use the trained neural network to convert the software security information on the Internet into the vector as the input of the model, the software security merits as the expected output to train the model.
 
 \section{Findings}
-\subsection{Implementing a stack smashing exploit that uses shellcode injection}
-The basic idea we got about code injection exploitation is that, when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means our injection will fail.
+In order to evaluate the accuracy of our VPM, we design three experiments to compare the prediction based on our models with the actual value stored in the NVD.
 
-In our case, we turn on ASLR after we successfully implement the code injection. When we want to replay what we do previously, we find that we cannot figure out the address where we want to insert our shellcode because the address will change after we re-execute our program.
+We define some meatures for our experiment, including $CRE$ (Corrected Relative Error), $FRank$. 
 
-There are several ways to defeat ASLR, one of which is brute force. \cite{defeating_tech} We need to try lots of addresses until it works.
-
-\subsection{Implementing a stack smashing exploit that uses arc-injection}
-When the system enables DEP (Data Execution Prevent), the stack is actually ``non-executable''. \cite{dep} It means some specific space in memory will be marked as ``non-executable'' space. If we use basic code injection, the program will terminate when the system finds the shell code runs in the ``non-executable'' space. Therefore, what we do in the previous experiment will fail.
-
-In order to defeat DEP, we use arc injection. The basic idea is that we add our malicious code to environment variables and system function instead of running it in the stack. In our attack, we transfer control flow of the program and change the stacker pointer to the system functions so that we can run our shell code.
-
-To defeat arc injection, we should enforce CFI (Control Flow Integrity) to entrue the control flow of the program is not changed by the attacker.
 
 \section{Conclusion}
 In this project and lecture, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online safety database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM. The method is based on the security information of the National Vulnerability Database of the United States and uses Bing search engine to search the software related vulnerability data. Based on the machine learning technology, the method generates the safety assessment report of the corresponding software, which is a new software vulnerability prediction model method. 
