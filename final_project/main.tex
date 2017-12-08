@@ -1,0 +1,91 @@
+\documentclass[journal]{IEEEtran}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+\title{Vulnerability Prediction Modeling Based on Machine Learning and Natural Language Processing}
+\author{Qiyang~Gu, Ujjawal~Sharma, Zhiyuan~Li}
+\maketitle
+
+
+\begin{abstract}
+To assist the vulnerability identification process, many researchers proposed prediction models that highlight(for inspection) the most likely to be vulnerable part of a software system. The normal method for vulnerability prediction modeling(VPM), users need to manually analyze the source code of the software, which requires very tedious work. In general, the manual analyzation methods requires analyze code size, structural complexity, information flow complexity, and so on, which means users must be able to get access to the source code of the software system.
+
+In this project, we introduce a new method to conduct the vulnerability prediction modeling, that is a deep learning based framework that assesses software vulnerabilities from the natural language processing. This approach starts from the name and the version of the software, using network crawler to crawl security information in the security database on the Internet, then utilizes NLP technology on big data on the Internet to predict software security indicators like the amount, impact and category of the security vulnerabilities in the software, therefore making evaluations on software security. This method based on the security information in NVD(National Vulnerability Database), using Bing to search software security information, utilizing machine-learning technology to generate security evaluation report.
+\end{abstract}
+
+\begin{IEEEkeywords}
+ Vulnerability Prediction Modeling, Machine Leaning, Natural Language Processing
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+\IEEEPARstart{F}or software system requires that high security and high quality, a vulnerability prediction model is required to give the software makers the understanding of software quality and reduce the risk of being attack. A good vulnerability prediction model can prevent mistakes and risks from occuring and avoid a ton of losses of software makers.
+
+Existing software security assessment methods are usually aimed at the software's source code. With the increase of software size and complexity, such methods gradually become difficult to meet the requirements of safety assessment. For many closed-source software, because assessors can not get the source code, it is difficult to use this type of method for safety assessment analysis. In fact, many online security databases and vulnerability forums contain a large amount of raw information related to software security. At present, these information are not fully used, therefore, this information and the corresponding experience of using software as the basis for evaluation will provide a new idea for software vulnerability prediction modeling.
+
+In this project, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online safety database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM.
+
+
+\section{Reasons and Goals}
+The reason for this project or lecture is to introduce a new method for software vulnerability modeling, which based on machine learning and natural language processing. We hold this opinion that a good and effective software vulnerability prediction model is very helpful and meaningful for the software makers to impove the quality of software and reduce the risk of being attack so that it can improve the profit of companies. So it is important to find a effective method for vulnerability prediction model, it not only can be benifit for the software makers, but also can be more secure for the entire software environment and a more secure environment for Internet users. Another incentive for us to introduce this method is that many online security databases and vulnerability forums contain a large amount of raw information related to software security. At present, these information are not fully used, therefore, this information and the corresponding experience of using software as the basis for evaluation will provide a new idea for software vulnerability prediction modeling. 
+
+Below are the goals, which we had in our mind while introducing this VPM method:
+\begin{itemize}
+\item To understand what is vulnerability prediction model.
+\item To understand how the mechine learning method can be applied in this VPM.
+\item To understand the way that natural language processing method applied in this VPM.
+\item To get a good conceptual grip on what each step of collecting data from NVD.
+\item To know how to use the mechine learning algorithm(random forest) to train the data.
+\end{itemize}
+
+\section{Project Execution Highlights}
+\subsection{Implementing a stack smashing exploit that uses shellcode injection}
+Firstly, we reviewed the knowledge provided to us in the class on how to exploit a bufferoverflow vulnerability and take advantage of this vulnerability to conduct stack smashing. We reviewed the structure of a stack and how it changes when it executes the function call procedure. Based on this, we were able to learn how to exploit stack smashing by code injection and arc injection and we aquired some basic understanding about how these two exploits work, and also, what's the difference between these two exploits. For the code injection, we constructed an exploit which will try to attack the vulnerable source code which has the unchecked \textit{strcpy()} or \textit{memcpy()} functions. The exploit will take the advantage of this unchecked function to pass argument of its choice.
+
+Secondly, After we constructed a vulnerable source code that was containing unchecked \textit{strcpy()}, we wrote an exploit source code to conduct stack smashing. In this exploit suorce code, we constructed the machine code of shellcode and our goal was to rewrite the return address to our shellcode's address. We need to insert this malicious code into the stack and make sure the stack is executable. So, when we build the C source code, we set the compiler options as \textit{gcc -z execstack -fno-stack-protector} so that, the stack can be executable and the stack canaries would be closed.
+
+Finally, we used the gdb to debug the program and got the information of ebp, esp, return address, and shellcode's address. Based on these information, we were able to do some calculation to determine what should we pass to the tainted buffer in order to make the vulnerable variable perform an overflow. This process is shown in detail in the Wiki. 
+
+When the project successfully return to our shellcode rather than the original main function, we concluded that our exploit works. And then, we turned ON the ASLR and received the segment fault error while running the same program. This occured because the randomization of the address of heap, stack, code, and shared libraries can be achieved by ASLR. And when we turned ASLR OFF, and enabled stack canaries, the attack did not work since we changed the value of stack canaries when we overflow the vulnerable variable in the stack. This will lead to  triggering of the program exception handle mechanism. To defeat the stack protected method, such as DEP, we need to use arc injection, which we will describe in detail soon. That will explain how to attack the program without requiring an executable stack.
+
+\subsection{Implementing a stack smashing exploit that uses arc-injection}
+Firstly, we knew that this exploit is also a type of bufferoverflow attack. However, we don't require the stack to be executable in this case, and also we don't even need a shellcode. Instead, we let the vulnerable program jump to the existing code, such as the \textit{system()} function in the libc library that has been loaded into memory, to implement our attack. So, similar to the code injection, we constructed a vulnerable source code and build it, and construct an exploit source code and build it. In this case, we don't require to set the compiler option \textit{gcc -z exestack} as we would not insert any code into the stack.
+
+Secondly, our goal is to let the vulnerable program jump to the \textit{system()} function and pass the \textit{/bin/sh} as argument. For this, we need to know the address of \textit{system()} and the address of environmental variable \textit{/bin/sh}. We can know the address of \textit{system()} by using \textit{p system} command in gdb since these functions are loaded into memory and their addresses are same for all the programs(As we've already turned off the ASLR). And, then, we will find the address of environmental variable \textit{/bin/sh} by \textit{getenv()}, or by using command \textit{x/500s \$esp} in gdb to find the address.
+
+Finally, we tested the exploit program and it worked well. And, we let the vulnerable program jump to the \textit{system()} and open the /bin/sh successfully. This process is shown in detail in the Wiki. We also know that the effective way to prevent our program to face an arc injection attack is by simply turning ON the ASLR, since it will make the attck very difficult by randomizing the addresses of shared library. However, there are some more complicated method to achieve the attack, such as chaining return-to-libc calls via frame-faking method.
+
+\section{Findings}
+\subsection{Implementing a stack smashing exploit that uses shellcode injection}
+The basic idea we got about code injection exploitation is that, when a function is called, we modify its return address in the stack to the address which is our shellcode address. Therefore, we need to get the exact address in the stack to put in our shellcode. If the ASLR (Address Space Layout Randomization) is off, we can calculate the address to be attacked by executing the program for several times. If the ASLR is on, the address in the memory will be randomized every time the program being executed. Therefore, we cannot figure out the address in the memory by executing the program, which means our injection will fail.
+
+In our case, we turn on ASLR after we successfully implement the code injection. When we want to replay what we do previously, we find that we cannot figure out the address where we want to insert our shellcode because the address will change after we re-execute our program.
+
+There are several ways to defeat ASLR, one of which is brute force. \cite{defeating_tech} We need to try lots of addresses until it works.
+
+\subsection{Implementing a stack smashing exploit that uses arc-injection}
+When the system enables DEP (Data Execution Prevent), the stack is actually ``non-executable''. \cite{dep} It means some specific space in memory will be marked as ``non-executable'' space. If we use basic code injection, the program will terminate when the system finds the shell code runs in the ``non-executable'' space. Therefore, what we do in the previous experiment will fail.
+
+In order to defeat DEP, we use arc injection. The basic idea is that we add our malicious code to environment variables and system function instead of running it in the stack. In our attack, we transfer control flow of the program and change the stacker pointer to the system functions so that we can run our shell code.
+
+To defeat arc injection, we should enforce CFI (Control Flow Integrity) to entrue the control flow of the program is not changed by the attacker.
+
+\section{Conclusion}
+In this homework, we understood the stack smash vulnerabilities and how an attacker can use it to divert the execution of any programme. Although to understand the whole process we took some time,but once we had understood the concept well, we were successfully able to execute it. We were able to understand the control flow of stack smashing vulnerability and how it is used by attackers to get the control of the programme. We were also able to understand why few of the functions are dangerous in C and C++ programming languages and why we should prefer not to use them.
+
+\section{Appendix}
+We put all supplementary information to the Wiki for our Gitlab project.
+
+\begin{thebibliography}{10}
+\bibitem{defeating_tech}
+N. Stack Overflows - Defeating Canaries, ``Stack Overflows - Defeating Canaries, ASLR, DEP, NX'', Security.stackexchange.com. [Online]. Available: https://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx.
+
+\bibitem{dep}
+``Executable space protection'', En.wikipedia.org. [Online]. Available: https://en.wikipedia.org/wiki/Executable\_space\_protection.
+\end{thebibliography}
+
+
+\end{document}
