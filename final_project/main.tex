@@ -4,6 +4,7 @@
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 \usepackage{graphicx}
+\usepackage{amsmath}
 \graphicspath{{public/}}
 
 \begin{document}
@@ -27,9 +28,9 @@ In this project, we introduce a new method to conduct the vulnerability predicti
 \section{Introduction}
 \IEEEPARstart{F}or software system requires that high security and high quality, a vulnerability prediction model is required to give the software makers the understanding of software quality and reduce the risk of being attacked. A good vulnerability prediction model can prevent mistakes and risks from occurring and avoid a ton of losses of software makers.
 
-Existing software security assessment methods are usually aimed at the software's source code. With the increase of software size and complexity, such methods gradually become difficult to meet the requirements of safety assessment. For many closed-source software systems, because assessors cannot get the source code, it is difficult to use this type of method for safety assessment analysis. In fact, many online security databases and vulnerability forums contain a large amount of raw information related to software security. At present, this information is not fully used, therefore, this information and the corresponding experience of using the software as the basis for evaluation will provide a new idea for software vulnerability prediction modeling.
+Existing software security assessment methods are usually aimed at the software's source code. With the increase of software size and complexity, such methods gradually become difficult to meet the requirements of security assessment. For many closed-source software systems, because assessors cannot get the source code, it is difficult to use this type of method for security assessment analysis. In fact, many online security databases and vulnerability forums contain a large amount of raw information related to software security. At present, this information is not fully used, therefore, this information and the corresponding experience of using the software as the basis for evaluation will provide a new idea for software vulnerability prediction modeling.
 
-In this project, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online safety database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM.
+In this project, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online security database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM.
 
 
 \section{Reasons and Goals}
@@ -38,10 +39,10 @@ The reason for this project or lecture is to introduce a new method for software
 Below are the goals, which we had in our mind while introducing this VPM method:
 \begin{itemize}
 \item To understand what is vulnerability prediction model.
-\item To understand how the mechine learning method can be applied in this VPM.
+\item To understand how the machine learning method can be applied in this VPM.
 \item To understand the way that natural language processing method applied in this VPM.
 \item To get a good conceptual grip on what each step of collecting data from NVD.
-\item To know how to use the mechine learning algorithm(random forest) to train the data.
+\item To know how to use the machine learning algorithm(random forest) to train the data.
 \end{itemize}
 
 \section{Project Execution Highlights}
@@ -64,26 +65,47 @@ Corpus collection is the process of using search engines to collect software sec
 \subsection{Model preparation and training}
 Model preparation and training is the process of preparing the training data of the machine learning model and training the model. We use the software security descriptive information in the training data source to train the neural network, and use the trained neural network to convert the software security information on the Internet into the vector as the input of the model, the software security merits as the expected output to train the model.
 
+
 \section{Findings}
-In order to evaluate the accuracy of our VPM, we design three experiments to compare the prediction based on our models with the actual value stored in the NVD.
+In order to improve the accuracy of our VPM, we desgin some experiments. Our first measure is $CRE$:
+\begin{align*}
+CRE=\frac{\Delta}{L+1}\times100\%
+\end{align*}
+where:
+\begin{itemize}
+\item $CRE$ is corrected relative error
+\item $\Delta$ is the absolute error. That is, the absolute value of the difference between the predicted value and the true value.
+\item $L$ is the true value.
+\end{itemize}
 
-We define some meatures for our experiment, including $CRE$ (Corrected Relative Error), $FRank$. 
+In our experiments, we calculate the $CRE$ for the number of vulnerabilities and the severity of the vulnerabilities in a software. By comparing the $CRE$ under different machine learning algorithms, we figure out the the Random forest algorithm has the highest accuracy. So we choose this algorithm to train our model.
 
+We define some other experimental measures like $F-Rank$ which refers to the position of the actual value in the prediction sequence. By these measures, we focus on the effect of search engine and feature words on our prediction accuracy. We find that the Google search engine and a combination of three feature words have the highest accuracy.  
+
+There are some other experiments which are discussed in our slides.
 
 \section{Conclusion}
-In this project and lecture, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online safety database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM. The method is based on the security information of the National Vulnerability Database of the United States and uses Bing search engine to search the software related vulnerability data. Based on the machine learning technology, the method generates the safety assessment report of the corresponding software, which is a new software vulnerability prediction model method. 
+In this project and lecture, we introduce a software VPM method based on machine learning and natural language processing. The method starts from the software name and version number provided by the user, crawling the online security database information, and combining the natural language analysis of web big data. Through the prediction of the number of software vulnerabilities, the severity, and the main types, to achieve this method for software VPM. The method is based on the security information of the National Vulnerability Database of the United States and uses Bing search engine to search the software related vulnerability data. Based on the machine learning technology, the method generates the security assessment report of the corresponding software, which is a new software vulnerability prediction model method. 
 
 We implemented the method based on Scala and the Java language and used the vulnerability data from the NVD database to evaluate the predictive performance of the method. The evaluation results show that the proposed method can make an accurate vulnerability prediction model for most software. And we compared the evaluation accuracy of different training algorithms, search engines, and feature word methods. The results show that the random forest algorithm, Bing search engine, and the combination of three specific feature words have good evaluation results.
 
-\section{Appendix}
-We put all supplementary information to the Wiki for our Gitlab project.
+
 
 \begin{thebibliography}{10}
-\bibitem{defeating_tech}
-N. Stack Overflows - Defeating Canaries, ``Stack Overflows - Defeating Canaries, ASLR, DEP, NX'', Security.stackexchange.com. [Online]. Available: https://security.stackexchange.com/questions/20497/stack-overflows-defeating-canaries-aslr-dep-nx.
+\bibitem{c1}
+Yonghee Shin and Laurie Williams. `Is Complexity Really the Enemy of Software Security?' In Proceedings of the 4th ACM Workshop on
+Quality of Protection, QoP 08, pages 47–50, New York, NY, USA, 20
+08. ACM.
 
-\bibitem{dep}
-``Executable space protection'', En.wikipedia.org. [Online]. Available: https://en.wikipedia.org/wiki/Executable\_space\_protection.
+\bibitem{c2}
+Zhuobing Han, Xiaohong Li, Ruitao Feng, Jing Hu, Guangquan Xu, Z
+hiyong Feng, ``A Three-Dimensional Model for Software Security Evalu ation'', 2014 Theoretical Aspects of Software Engineering Conference (TASE), vol. 00, no. , pp. 34-41, 2014, doi:10.1109/TASE.2014.31
+
+\bibitem{c3}
+Du, C., X. Li, H. Shi, J. Hu, R. Feng, and Z. Feng. ``Architecture Se curity Evaluation Method Based on Security of the Components.'' In 2 013 20th Asia-Pacific Software Engineering Conference (APSEC), 1:5 23–28, 2013. doi:10.1109/APSEC.2013.75.
+
+\bibitem{c4}
+R. Kazman, M. Klein, and P. Clements, ``ATAM: Method for architectu re evaluation,'' DTIC Document2000.
 \end{thebibliography}
 
 
