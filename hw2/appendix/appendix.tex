@@ -66,6 +66,8 @@ The make command ran successfully with 1 warning which we ignored because that c
 \noindent
 
 \subsection{Dump the headers}
+A header file is a file containing C declarations and macro definitions to be shared between several source files.We can request the use of any header file in our C programme by using the 'include' keyword. Header files declare the interfaces to parts of the operating system. We can include them in our programme to supply the definitions and declarations we need to invoke system calls and libraries. During the development process a developer creates a header file which contains the declarations of interfaces between the source files of the program. Whenever we have a group of related declarations and macro definitions, all or most of which are needed in several different source files, it is a good idea to create a header file for them.
+
 For dumping the headers, we use the objdump programme provided by the GCC compiler. It is used for displaying various information about object files. It is used in the process of reverse engineering to view an executable in assembly form as a disassembler. objdump converts the binary file to a more human readable format by converting it to the Hex-form. Using the result obtained on the screen we can analyse how the binary is interacting with the CPU.\\
 
 \noindent
@@ -157,12 +159,15 @@ As the screen shot showing above, there are total of 33 section headers(only par
 For example, the function of the section .iterp is that it holds the path name of a program interpreter. If the file has a loadable segment that includes the section, the section’s attributes will include the SHF\_ALLOC bit; otherwise, that bit will be off.
 
 
-\subsection{Analyze the library dependencies}
-We run the following command to print the shared library dependencies.
+\subsection{Analyzing the library dependencies}
+A Shared Library is a file that is intended to be shared by executable files. Modules used by a program are loaded from individual shared objects into memory at load time or run time, rather than being copied by a linker when it creates a single monolithic executable file for the program. All the code relating to the library is in this file and it is directly linked into the program at the run time.
+\\
+\noindent
+We used the following command to print the shared library dependencies which are loaded by any running processes:
 \begin{lstlisting}
 $ ldd webbench
 \end{lstlisting}
-We get these library dependencies.
+By running the above command, we got the below library dependencies.
 
 \begin{lstlisting}
 linux-vdso.so.1 =>  (0x00007ffd99184000)
@@ -171,9 +176,10 @@ libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fd9627f2000)
 \end{lstlisting}
 
 \noindent
-linux-gate.so.1 is the Linux Virtual Dynamic Shared Object. This file only exists in each executables address space. \\
+linux-vdso.so.1 is the Linux Virtual Dynamic Shared Object. This file exists in each executables address space. \\
 libc.so.6 is libc shared object version 6, which sits in /lib/i386-linux-gnu and its memory location is 0x00007ffd99184000. \\
-The last line talks about ld-linux.so version 2 under /lib. This fellow will find and load shared libraries node needs. It will prep those libraries and run them.
+The last line talks about ld-linux.so version 2 under /lib64. This will find and load shared libraries node needs. It will prepare those libraries and run them.
+
 
 
 \subsection{List the symbols}
@@ -419,6 +425,42 @@ close(5)                                = 0
 }
 \noindent
 These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
+
+\subsection{About WebBench}
+WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system.
+
+\noindent
+For example, we can use WebBench as shown in the screenshot below:
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[height=10cm]{WebBenchExample.png}
+    \caption{Image showing the source code folder after running make command}
+\end{figure}
+
+The above screenshot explains that for the website http://youtube.com/, we simulated 500 clients for 30 seconds which resulted for a parsing speed of 3360 pages/min with data communication rate of 7398 bytes/sec. Out of the total 1680 resquests bombarded at the server, 1666 completed successfully and 14 failed.
+
+\subsection{WebBench Fuctionalities}
+\noindent
+Below are few of the functionalities provided by webbench:
+\begin{center}
+    \begin{tabular}{ |r|r|m{13cm}|} 
+     \hline
+     1 & webbench -r URL & -r allows us to send reload requests to the user instead of the normal hits.\\ 
+     \hline
+     2 & webbench -t URL & -t allows us to limit/extend the time limit for which the test has to be performed.Default is 30 seconds.\\ 
+     \hline
+     3 & webbench -p URL &cell9\\ 
+     \hline
+     4 & webbench -c URL  &cell9\\
+     \hline 
+     5 & webbench -9 URL &cell9\\ 
+     \hline
+     6 & webbench -1 URL &cell9\\
+     \hline 
+     7 & webbench -1 URL &cell9\\ 
+     \hline
+\end{tabular}
+\end{center}
 
 
 \section{From \textit{SciTools Understand}}
