@@ -27,17 +27,50 @@
 
 \section{From Linux Command Line}
 \subsection{Compile the binary}
-WebBench is written totally by C. There is a Makefile in the top level of the directory. So we just have to run the following linux command to compile the source code.
 
+We started the Reverse Engineering process by downloading the WebBench source code from the below URL:
 \begin{lstlisting}
-$ sudo make    
+                        https://github.com/wxmyt/WebBench   
 \end{lstlisting}
 
+We downloaded the file to a folder and unzipped the file 
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[height=10cm]{Unzip.png}
+    \caption{Unzipping the downloaded code}
+\end{figure}
+After unzipping the source code, we observed that the source code is in C programming language. For the reverse engineering process we used the Ubuntu 14.04 Operating System. We also observed that the source code was using the 'Make' build automation tool for building the source code. 'Make' is a build automation tool that automatically builds executable programs and libraries from the source code by reading files called 'Makefile' which is provided with the source code and contains the information on how to derive the target application from sourcecode. 
+
+As the source code was in C programming language, it was important to use the GCC compiler as well. For installing both 'Make' and 'GCC' compiler we ran the following code on terminal.
+
+\begin{lstlisting}
+ $ sudo apt-get install build-essential  
+\end{lstlisting}
+
+After the installation of 'Make' and 'GCC' was done, we navigated to the unzipped WebBench folder and ran the below command to build the WebBench binary:
+\newpage
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[height=10cm]{BeforeMake.png}
+    \caption{Image showing the source code folder before running make command}
+\end{figure}
+
+The make command ran successfully with 1 warning which we ignored because that came with the source code. We can also observe in the screenshot below that the 'Make' command created the final executable for the application 'WebBench':
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[height=10cm]{AfterMake.png}
+    \caption{Image showing the source code folder after running make command}
+\end{figure}
 \noindent
-From the Makefile, the compiler is \textit{gcc}. Our operating system is Ubuntu 16.04
 
 \subsection{Dump the headers}
-We run the following command to dump the headers.
+For dumping the headers, we use the objdump programme provided by the GCC compiler. It is used for displaying various information about object files. It is used in the process of reverse engineering to view an executable in assembly form as a disassembler. objdump converts the binary file to a more human readable format by converting it to the Hex-form. Using the result obtained on the screen we can analyse how the binary is interacting with the CPU.\\
+
+\noindent
+For getting the dump of the headers, we executed the following command to dump the headers:
+
 \begin{lstlisting}
 $ objdump -h webbench
 \end{lstlisting}
