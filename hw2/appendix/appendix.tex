@@ -10,6 +10,7 @@
 \usepackage{listings}
 \usepackage{color}
 
+
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 
 \lstset{
@@ -449,20 +450,20 @@ Below are few of the functionalities provided by webbench:
      \hline
      2 & webbench -t URL & -t allows us to limit/extend the time limit for which the test has to be performed.Default is 30 seconds.\\ 
      \hline
-     3 & webbench -p URL &cell9\\ 
+     3 & webbench -p URL & -p allows us to use a proxy server for sending requests.\\ 
      \hline
-     4 & webbench -c URL  &cell9\\
+     4 & webbench -c URL & -c allows us to run 'n' number of HTTP clients at once. Default is 1.\\
      \hline 
-     5 & webbench -9 URL &cell9\\ 
+     5 & webbench -9 URL & -9 gives us the flexibility to use HTTP/0.9 style requests.\\
      \hline
-     6 & webbench -1 URL &cell9\\
+     6 & webbench -1 URL & -1 gives us the flexibility to use HTTP/1.0 style requests.\\
      \hline 
-     7 & webbench -1 URL &cell9\\ 
+     7 & webbench -1 URL & -2 gives us the flexibility to use HTTP/1.1 style requests.\\
      \hline
 \end{tabular}
 \end{center}
 
-
+\subsection{System Architectural Diagram}
 \section{From \textit{SciTools Understand}}
 \subsection{Import the source into \textit{SciTools Understand}}
 We modify the Makefile of the software. Now the Makefile is:
