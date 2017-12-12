@@ -599,15 +599,28 @@ A control flow diagram provides us with the details about the flow of the logic 
 \end{figure}
 
 
-\subsection{Identify \textit{main()} function vulnerabilities}
+\subsection{Identifying \textit{main()} function vulnerabilities}
 The main function of WebBench takes URL as a user provided input. The method accepts the parameter as a plain text and the method does not employ any method to encrypt/decrypt the URL. This itself is one of the major threats for the software. An attacker can flood the application with huge amount of traffic and can overload the application at any given time. Also, an unencrypted URL is highly vulnerable to URL manipulation and thus can depict some serious behavior in the system. 
+
+\noindent
+In the main method we came across 2 variables (optarg and clients) which are directly dependent on the input parameter and they are very much available for any buffer overflow exploit as they are using the format specifier for storing the inputs. The attacker can pass his own parameter by overriding the main method. It may be tough for him in the beginning to guess the behaviour, but with few random inputs he will be able to guess it. Also, we got another vulnerability where the input argument does not warn the user for the limit of number of arguments. While providing the inputs we came to know that there is no check provided by the rogramme on the number of parameters that it can take but it only processes the first input provided in the sequence of parameters. 
 
 \noindent Most of the vulnerabilities are discovered due to some unwanted behaviors in the system produced by inefficient code. However, any inefficient system does not start demonstrating such behaviors from the first day, the system has to wait for a powerful enough adversary to take over the capability of any functionality. So, it wont be incorrect if we assume that most of the vulnerabilities are product of poor implementation of code. The people who discover these kind of behaviors have sound knowledge of implementation of accurate solution of the requirement.
 
+\subsection{Aim for finding the vulnerabilities}
+While going through the code for identifying any potential vulnerability, our purpose is to identify the locations in code where the programmer has inefficiently crafted the logic. By inefficient logic, we mean that there can be a situation where the programmer was unaware of the actual behaviour of the logic which he/she implemented. This can cause him to implement the logic in such a way that can be an open invitation for the attacker. 
+
+While looking for vulnerabilities, we focus on several factors of the programme such as encryption of input, proper initialization of variables and also their scope. We also focus on whether there is any loop-hole in handling of variables when it is passed from one method to another. In short, we take care of the complete life-cycle of any variable so that it does not get misused by the attacker.
 
 \section{Reverse engineering ELF files}
 \subsection{Plot the entropy}
 We firstly use \textit{http://binvis.io/} to generate entropy of webbench. Entropy of a binary file provide us with a detail about the degree of disorder which it possess. If we have a data set where all the elements have the same value ,the amount of disorder will be nil and the entropy will be zero. If a data set has maximum amount of heteroginity,it is said to contain maximum entropy. Reverse enginnering mainly focuses on high order of entropy as the concerned data firstly provide them with the information about the compressed data and cryptographic data.\cite{plot_ent}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[height=10cm]{Entropy.png}
+    \caption{Entropy of binary file of webbench}
+\end{figure}
 
 \subsection{Write Python script}
 We write a Python script to read the ELF file and print some information out. The following is the script.
