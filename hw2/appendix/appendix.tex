@@ -390,6 +390,9 @@ pathname & If the region was mapped from a file, this is the name of the file. T
 \caption{Descriptions for VM table fields\cite{vmap}}
 \end{table}
 
+\noindent
+In this case, we can know from the information shown above that the Webbench binary file is running in the contiguous virtual memory, and there are also shared libraries in the virtual memory.
+
 
 \subsection{Run strace}
 We fistly run the webbench, then we use \textit{ps} command to get the pid, and then we run strace on it.
@@ -437,7 +440,7 @@ close(5)                                = 0
 \end{lstlisting}
 }
 \noindent
-These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
+The strace command allow us to trace the system calls and signal delivery of the Webbench process. These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
 
 \subsection{About WebBench}
 WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system. \\
