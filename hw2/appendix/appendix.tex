@@ -386,6 +386,9 @@ pathname & If the region was mapped from a file, this is the name of the file. T
 \caption{Descriptions for VM table fields\cite{vmap}}
 \end{table}
 
+\noindent
+In this case, we can know from the information shown above that the Webbench binary file is running in the contiguous virtual memory, and there are also shared libraries in the virtual memory.
+
 
 \subsection{Run strace}
 We fistly run the webbench, then we use \textit{ps} command to get the pid, and then we run strace on it.
