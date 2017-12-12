@@ -436,7 +436,10 @@ close(5)                                = 0
 These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
 
 \subsection{About WebBench}
-WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system.
+WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system.  
+
+\noindent
+The main functionality of webbench.c is to benchmarking WWW or proxy servers. In the webbench.c source code, it allows users to use different options to benchmark specific URL by simulating multiple clients to connect to the server and also record the successful connection times as well as failed connection times.
 
 \noindent
 For example, we can use WebBench as shown in the screenshot below:
@@ -450,7 +453,7 @@ The above screenshot explains that for the website http://youtube.com/, we simul
 
 \subsection{WebBench Fuctionalities}
 \noindent
-Below are few of the functionalities provided by webbench:
+Below are few of the options provided by webbench:
 \begin{center}
 \begin{tabular}{ |r|r|m{13cm}|} 
      \hline
