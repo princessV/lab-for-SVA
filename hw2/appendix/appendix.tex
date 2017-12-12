@@ -164,13 +164,17 @@ Idx Name          Size      VMA               LMA               File off  Algn
 
 \noindent
 In the output above, Size is the size of the loaded section, VMA represents the virtual memory address, LMA represents the logical memory address, File off is this section’s offset from the beginning of the file, Algn represents alignment, CONTENTS, ALLOC, LOAD, READONLY, DATA are flags that represent that a particular section is to be LOADED or is READONLY etc. \cite{objdump}\\
+
+\noindent
 As the screen shot showing above, there are total of 33 section headers(only partial output is shown). These sections are used by the system to hold program and control information. \\
+
+\noindent
 For example, the function of the section .iterp is that it holds the path name of a program interpreter. If the file has a loadable segment that includes the section, the section’s attributes will include the SHF\_ALLOC bit; otherwise, that bit will be off.
 
 
 \subsection{Analyzing the library dependencies}
-A Shared Library is a file that is intended to be shared by executable files. Modules used by a program are loaded from individual shared objects into memory at load time or run time, rather than being copied by a linker when it creates a single monolithic executable file for the program. All the code relating to the library is in this file and it is directly linked into the program at the run time.
-\\
+A Shared Library is a file that is intended to be shared by executable files. Modules used by a program are loaded from individual shared objects into memory at load time or run time, rather than being copied by a linker when it creates a single monolithic executable file for the program. All the code relating to the library is in this file and it is directly linked into the program at the run time. \\
+
 \noindent
 We used the following command to print the shared library dependencies which are loaded by any running processes:
 \begin{lstlisting}
@@ -436,19 +440,20 @@ close(5)                                = 0
 These information only shows partial output. We can see some functions are running, such as recvfrom(), socket(), connect(), read(), write(), close(). Because the Webbench is a tool for benchmarking WWW or proxy servers, it will use fork() for stimulating multiple clients. So in the screenshot there are a lot of functions like recvfrom(), socket(), read(), and write().
 
 \subsection{About WebBench}
-WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system.  
+WebBench is a tool for testing the performance of servers under heavy loads. It uses the fork() system call for simulating multiple clients at a time and can let us know if a particular system is capable of handling several client without pulling down the system. \\
 
 \noindent
-The main functionality of webbench.c is to benchmarking WWW or proxy servers. In the webbench.c source code, it allows users to use different options to benchmark specific URL by simulating multiple clients to connect to the server and also record the successful connection times as well as failed connection times.
+The main functionality of webbench.c is to benchmarking WWW or proxy servers. In the webbench.c source code, it allows users to use different options to benchmark specific URL by simulating multiple clients to connect to the server and also record the successful connection times as well as failed connection times. \\
 
 \noindent
 For example, we can use WebBench as shown in the screenshot below:
 \begin{figure}[!htbp]
-    \centering
-    \includegraphics[height=10cm]{WebBenchExample.png}
-    \caption{Image showing the source code folder after running make command}
+\centering
+\includegraphics[height=7.5cm]{WebBenchExample.png}
+\caption{Image showing the source code folder after running make command}
 \end{figure}
 
+\noindent
 The above screenshot explains that for the website http://youtube.com/, we simulated 500 clients for 30 seconds which resulted for a parsing speed of 3360 pages/min with data communication rate of 7398 bytes/sec. Out of the total 1680 resquests bombarded at the server, 1666 completed successfully and 14 failed.
 
 \subsection{WebBench Fuctionalities}
@@ -463,7 +468,7 @@ Below are few of the options provided by webbench:
      \hline
      3 & webbench -p URL & -p allows us to use a proxy server for sending requests.\\ 
      \hline
-     4 & webbench -c URL & -c allows us to run 'n' number of HTTP clients at once. Default is 1.\\
+     4 & webbench -c URL & -c allows us to run `n' number of HTTP clients at once. Default is 1.\\
      \hline 
      5 & webbench -9 URL & -9 gives us the flexibility to use HTTP/0.9 style requests.\\
      \hline
@@ -474,7 +479,34 @@ Below are few of the options provided by webbench:
 \end{tabular}
 \end{center}
 
+\noindent
+Below are system-level functions of webbench:
+\begin{center}
+\begin{tabular}{ |l|m{13cm}|} 
+\hline
+main() & This is the function that allow the entry to the program. In main(), there is user interface that provides user to read the different options of and choose different options and also input the URL. \\ 
+\hline
+bench() & Create a specific number of clients in order to connect to the server. The maximum number that application can create is 30,000. \\ 
+\hline
+usage() & Print the options and information about each option. \\
+\hline
+build\_request() & According to the URL the user entered, this function verify the validity of that URL. \\
+\hline 
+benchcore() & Control the benchmarking process and record the successful or fail connections. \\
+\hline
+Socket() & Define the socket that provides for client to connect to server.\\
+
+\hline
+\end{tabular}
+\end{center}
+
 \subsection{System Architectural Diagram}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[height=7.5cm]{sa.jpeg}
+\caption{System Architecture}
+\end{figure}
+
 \section{From \textit{SciTools Understand}}
 \subsection{Import the source into \textit{SciTools Understand}}
 We modify the Makefile of the software. Now the Makefile is:
