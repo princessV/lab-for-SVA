@@ -31,25 +31,30 @@
 
 We started the Reverse Engineering process by downloading the WebBench source code from the below URL:
 \begin{lstlisting}
-                        https://github.com/wxmyt/WebBench   
+https://github.com/wxmyt/WebBench   
 \end{lstlisting}
 
+\noindent
 We downloaded the file to a folder and unzipped the file 
 
 \begin{figure}[!htbp]
-    \centering
-    \includegraphics[height=10cm]{Unzip.png}
-    \caption{Unzipping the downloaded code}
+\centering
+\includegraphics[height=10cm]{Unzip.png}
+\caption{Unzipping the downloaded code}
 \end{figure}
-After unzipping the source code, we observed that the source code is in C programming language. For the reverse engineering process we used the Ubuntu 14.04 Operating System. We also observed that the source code was using the 'Make' build automation tool for building the source code. 'Make' is a build automation tool that automatically builds executable programs and libraries from the source code by reading files called 'Makefile' which is provided with the source code and contains the information on how to derive the target application from sourcecode. 
 
-As the source code was in C programming language, it was important to use the GCC compiler as well. For installing both 'Make' and 'GCC' compiler we ran the following code on terminal.
+\noindent
+After unzipping the source code, we observed that the source code is in C programming language. For the reverse engineering process we used the Ubuntu 14.04 Operating System. We also observed that the source code was using the `Make' build automation tool for building the source code. `Make' is a build automation tool that automatically builds executable programs and libraries from the source code by reading files called `Makefile' which is provided with the source code and contains the information on how to derive the target application from sourcecode. \\
+
+\noindent
+As the source code was in C programming language, it was important to use the GCC compiler as well. For installing both `Make' and `GCC' compiler we ran the following code on terminal.
 
 \begin{lstlisting}
  $ sudo apt-get install build-essential  
 \end{lstlisting}
 
-After the installation of 'Make' and 'GCC' was done, we navigated to the unzipped WebBench folder and ran the below command to build the WebBench binary:
+\noindent
+After the installation of `Make' and `GCC' was done, we navigated to the unzipped WebBench folder and ran the below command to build the WebBench binary:
 \newpage
 \begin{figure}[!htbp]
     \centering
@@ -447,7 +452,7 @@ The above screenshot explains that for the website http://youtube.com/, we simul
 \noindent
 Below are few of the options provided by webbench:
 \begin{center}
-    \begin{tabular}{ |r|r|m{13cm}|} 
+\begin{tabular}{ |r|r|m{13cm}|} 
      \hline
      1 & webbench -r URL & -r allows us to send reload requests to the user instead of the normal hits.\\ 
      \hline
@@ -625,11 +630,94 @@ We firstly use \textit{http://binvis.io/} to generate entropy of webbench. Entro
     \caption{Entropy of binary file of webbench}
 \end{figure}
 
-\subsection{Write Python script}
-We write a Python script to read the ELF file and print some information out. The following is the script.
-{
-\scriptsize
+\newpage
+\noindent
+From the above figure we can identify that most part of the image is showing black colours which means that the entropy is zero in those regions. With zero entropy we should understand that the data at those locations are not heterogenous. On the other hand, in the region of blue shade, they have intermediate entropy, such entropy regions depict normal texts and data whose re-occurances is mild. There are very few pink regions, which tells us about the regions with high entropy. High entropy is a region which shows data, the occurance of which is mostly once and it is highly encrypted. So, the more pink is the entropy image, the more it is secured, compressed or encrypted.
+
+\subsection{Reverse Engineering a portion of the code}
 \begin{lstlisting}
+    void benchcore(const char *host,const int port,const char *req)
+    {
+        int rlen;
+        char buf[1500];
+        int s,i;
+        struct sigaction sa;
+    
+        /* setup alarm signal handler */
+        sa.sa_handler=alarm_handler;
+        sa.sa_flags=0;
+        if(sigaction(SIGALRM,&sa,NULL))
+            exit(3);
+        
+        alarm(benchtime); // after benchtime,then exit
+    
+        rlen=strlen(req);
+        nexttry:while(1)
+        {
+            if(timerexpired)
+            {
+                if(failed>0)
+                {
+                    /* fprintf(stderr,"Correcting failed by signal\n"); */
+                    failed--;
+                }
+                return;
+            }
+            
+            s=Socket(host,port);                          
+            if(s<0) { failed++;continue;} 
+            if(rlen!=write(s,req,rlen)) {failed++;close(s);continue;}
+            if(http10==0) 
+            if(shutdown(s,1)) { failed++;close(s);continue;}
+            if(force==0) 
+            {
+                /* read all available data from socket */
+                while(1)
+                {
+                    if(timerexpired) break; 
+                    i=read(s,buf,1500);
+                    /* fprintf(stderr,"%d\n",i); */
+                    if(i<0) 
+                    { 
+                        failed++;
+                        close(s);
+                        goto nexttry;
+                    }
+                    else
+                    if(i==0) break;
+                    else
+                    bytes+=i;
+                }
+            }
+            if(close(s)) {failed++;continue;}
+            speed++;
+        }
+    }
+}
+\end{lstlisting}
+
+\noindent
+The above method  takes the input as the hostname and port and the request pointer location. Below are some of the fields which are used in the above programme:
+\begin{center}
+    \begin{tabular}{ |c|r|m{13cm}|} 
+         \hline
+         1 & rlen & it keeps the length of the requests obtained through the parameter. It takes care of all the requests which are getting send by verifying if the testing has been done on it or not.\\ 
+         \hline
+         2 & timerexpired  & it is a parameter which tells the programme to test for only those many seconds. Once the timeexpired is reached the testing is closed for that particular request.\\ 
+         \hline
+         3 & failed & failed is a counter which keeps a track of how many requests failed out of a certain number of hits to the server.\\ 
+         \hline
+         4 & benchtime & benchtime is responsible for setting up an alarm which tells the programm to exit after the provided time.\\
+         \hline 
+\end{tabular}
+\end{center}
+
+\subsection{The Python script}
+For read the ELF file and getting some information out of it, we created a python script. 
+Following is the script:
+{
+\tiny
+\begin{lstlisting}[language=Python]
 def parser():
     file = open('webbench', 'rb')
     
