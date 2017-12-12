@@ -57,23 +57,25 @@ As the source code was in C programming language, it was important to use the GC
 After the installation of `Make' and `GCC' was done, we navigated to the unzipped WebBench folder and ran the below command to build the WebBench binary:
 \newpage
 \begin{figure}[!htbp]
-    \centering
-    \includegraphics[height=10cm]{BeforeMake.png}
-    \caption{Image showing the source code folder before running make command}
+\centering
+\includegraphics[height=10cm]{BeforeMake.png}
+\caption{Image showing the source code folder before running make command}
 \end{figure}
 
-The make command ran successfully with 1 warning which we ignored because that came with the source code. We can also observe in the screenshot below that the 'Make' command created the final executable for the application 'WebBench':
+\noindent
+The make command ran successfully with 1 warning which we ignored because that came with the source code. We can also observe in the screenshot below that the `Make' command created the final executable for the application `WebBench':
 
 \begin{figure}[!htbp]
-    \centering
-    \includegraphics[height=10cm]{AfterMake.png}
-    \caption{Image showing the source code folder after running make command}
+\centering
+\includegraphics[height=10cm]{AfterMake.png}
+\caption{Image showing the source code folder after running make command}
 \end{figure}
 \noindent
 
 \subsection{Dump the headers}
-A header file is a file containing C declarations and macro definitions to be shared between several source files.We can request the use of any header file in our C programme by using the 'include' keyword. Header files declare the interfaces to parts of the operating system. We can include them in our programme to supply the definitions and declarations we need to invoke system calls and libraries. During the development process a developer creates a header file which contains the declarations of interfaces between the source files of the program. Whenever we have a group of related declarations and macro definitions, all or most of which are needed in several different source files, it is a good idea to create a header file for them.
+A header file is a file containing C declarations and macro definitions to be shared between several source files.We can request the use of any header file in our C programme by using the `include' keyword. Header files declare the interfaces to parts of the operating system. We can include them in our programme to supply the definitions and declarations we need to invoke system calls and libraries. During the development process a developer creates a header file which contains the declarations of interfaces between the source files of the program. Whenever we have a group of related declarations and macro definitions, all or most of which are needed in several different source files, it is a good idea to create a header file for them. \\
 
+\noindent
 For dumping the headers, we use the objdump programme provided by the GCC compiler. It is used for displaying various information about object files. It is used in the process of reverse engineering to view an executable in assembly form as a disassembler. objdump converts the binary file to a more human readable format by converting it to the Hex-form. Using the result obtained on the screen we can analyse how the binary is interacting with the CPU.\\
 
 \noindent
@@ -159,6 +161,7 @@ Idx Name          Size      VMA               LMA               File off  Algn
                   CONTENTS, READONLY, DEBUGGING    
 \end{lstlisting}
 }
+
 \noindent
 In the output above, Size is the size of the loaded section, VMA represents the virtual memory address, LMA represents the logical memory address, File off is this section’s offset from the beginning of the file, Algn represents alignment, CONTENTS, ALLOC, LOAD, READONLY, DATA are flags that represent that a particular section is to be LOADED or is READONLY etc. \cite{objdump}\\
 As the screen shot showing above, there are total of 33 section headers(only partial output is shown). These sections are used by the system to hold program and control information. \\
